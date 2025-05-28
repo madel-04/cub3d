@@ -32,8 +32,13 @@ typedef struct	s_config {
 	char	**map_lines;            // <- Lista de líneas del mapa
 }	t_config;
 
+// *** CONFIG INIT ***
+void ft_config_init(t_config *config);
+
 // *** PARSEO ***
 int ft_parse_config(int fd, t_config *config);
 
+// *** FREE ***
+void free_config(t_config *config);
 
 #endif

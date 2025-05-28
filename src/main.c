@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 	if (!ft_parse_config(fd, &config)) // TODO
 	{
 		close(fd);
-		free_config(&config); //TODO
+		free_config(&config);
 		return (ft_error("Error: Fallo al parsear el archivo.\n"));
 	}
 	if (!validate_config(&config)) // TODO
@@ -107,6 +107,6 @@ int main(int argc, char **argv)
 	// & Aquí el código para leer el archivo y parsear la configuración
 	// & Programa del juego cub3d
 	close(fd);
-	free_config(&config); //TODO 
+	free_config(&config);
 	return (0);
 }
