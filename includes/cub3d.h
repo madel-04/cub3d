@@ -23,13 +23,17 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-typedef struct s_config {
-  int   res_x;
-  int   res_y;                   // <- R línea
-  char  *textures[4];            // [NO, SO, WE, EA]  <- líneas de textura 
-  int   floor_color[3];          // <- F línea
-  int   ceiling_color[3];        // <- C línea
-  char  **map_lines;            // <- Lista de líneas del mapa
-} t_config;
+typedef struct	s_config {
+	int		res_x;
+	int		res_y;                   // <- R línea
+	char	*textures[4];            // [NO, SO, WE, EA]  <- líneas de textura 
+	int		floor_color[3];          // <- F línea
+	int		ceiling_color[3];        // <- C línea
+	char	**map_lines;            // <- Lista de líneas del mapa
+}	t_config;
+
+// *** PARSEO ***
+int ft_parse_config(int fd, t_config *config);
+
 
 #endif
