@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parser_config.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madel-va <madel-va@student.42.fr>          #+#  +:+       +#+        */
+/*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-05-28 10:53:38 by madel-va          #+#    #+#             */
-/*   Updated: 2025-05-28 10:53:38 by madel-va         ###   ########.fr       */
+/*   Created: 2025/05/28 10:53:38 by madel-va          #+#    #+#             */
+/*   Updated: 2025/05/28 22:47:37 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void ft_strtrim_inplace(char *line)
+{
+	char	*start;
+	char	*end;
+
+	start = line;
+	while (ft_isspace(*start)) // elimina espacios o tabs al inicio
+		start++;
+	end = line + ft_strlen(line) - 1;
+	while (end > start && ft_isspace(*end)) // elimina al final
+		*end-- = '\0';
+	if (start != line)
+		ft_memmove(line, start, end - start + 2); // mueve la parte limpia al principio
+}
 
 static int ft_is_map_line(const char *line)
 {
