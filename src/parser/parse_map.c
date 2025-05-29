@@ -12,6 +12,44 @@
 
 #include "cub3d.h"
 
+char	*ft_tabtospaces(char *str)
+{
+	char	*res;
+	int		i = 0, j = 0, len = 0, tabs = 0;
+
+	
+	if (!str)
+		return (NULL);
+	if (str[0] == '\0')
+		return (free(str), ft_strdup(""));  // o malloc(1) + '\0'
+	while (str[len])
+	{
+		if (str[len] == '\t')
+			tabs++;
+		len++;
+	}
+	res = malloc(len + tabs * 3 + 1);
+	if (!res)
+		return (free(str), NULL);
+	while (str[i])
+	{
+		if (str[i] == '\t')
+		{
+			res[j++] = ' ';
+			res[j++] = ' ';
+			res[j++] = ' ';
+			res[j++] = ' ';
+		}
+		else
+			res[j++] = str[i];
+		i++;
+	}
+	res[j] = '\0';
+	free(str);
+	return (res);
+}
+
+
 int	ft_parse_map(int fd, t_config *config, char *first_line)
 {
 	char	**map;
@@ -25,9 +63,17 @@ int	ft_parse_map(int fd, t_config *config, char *first_line)
 	map = malloc(sizeof(char *) * (lines_alloc + 1));
 	if (!map)
 		return (0);
-	map[lines_count++] = first_line;
+	map[lines_count++] = ft_strdup(first_line);
+	if (!map[0])
+		return (free(map), 0);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		line = ft_tabtospaces(line);
+		if (!ft_is_map_line(line))
+		{
+			free(line);
+			break;
+		}
 		if (lines_count >= lines_alloc)
 		{
 			lines_alloc *= 2;
@@ -37,6 +83,7 @@ int	ft_parse_map(int fd, t_config *config, char *first_line)
 			map = tmp;
 		}
 		map[lines_count++] = line;
+		//printf("%s\n", line); // Debug
 	}
 	map[lines_count] = NULL;
 	config->map_lines = map; // !Guardar el puntero al mapa en config->map_lines

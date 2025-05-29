@@ -49,7 +49,9 @@ SRC			= other/ft_tolower.c \
 			  str/ft_striteri.c \
 			  other/ft_atoi.c \
 			  str/ft_strchr.c \
-			  str/ft_strtrim.c
+			  str/ft_strtrim.c \
+			  get_next_line.c \
+			  get_next_line_utils.c \
 
 OBJ			= $(SRC:%.c=%.o)
 #Para generar los archivos objetos de una lista fuente SRCS

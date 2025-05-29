@@ -18,7 +18,7 @@ SRC =   $(SRC_DIR)main/main.c \
 
 MLX = -L minilibx-linux -lmlx_Linux -lX11 -lXext -lm
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 LDFLAGS = -lreadline -Llibft -lft
 
 OBJ = $(SRC:$(SRC_DIR)%= $(OBJ_DIR)%)

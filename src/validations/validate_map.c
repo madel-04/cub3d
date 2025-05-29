@@ -12,6 +12,16 @@
 
 #include "cub3d.h"
 
+void	print_map(char **map)
+{
+    int i = 0;
+    while (map && map[i])
+    {
+        printf("%s\n", map[i]);
+        i++;
+    }
+}
+
 int	is_map_closed(char **map)
 {
 	char	**copy;
@@ -20,6 +30,7 @@ int	is_map_closed(char **map)
 	int		valid;
 
 	copy = copy_map(map);
+	print_map(copy);
 	if (!copy)
 		return (ft_error("Error al copiar mapa\n"));
 	if (!find_player_start(copy, &x, &y))
@@ -29,6 +40,7 @@ int	is_map_closed(char **map)
 	}
 	valid = flood_fill(copy, x, y);
 	free_map(copy);
+	printf("%i\n", valid);
 	if (!valid)
 		return (ft_error("El mapa tiene huecos o está abierto.\n"));
 	return (1);
@@ -75,20 +87,23 @@ int	find_player_start(char **map, int *x, int *y)
 			}
 		}
 	}
-	return (0)
+	return (0);
 }
 
-static int	is_invalid(char c)
-{
-	return (c == ' ' || c == '\0');
-}
+//static int	is_invalid(char c)
+//{
+//	return (c == ' ' || c == '\0');
+//}
 
 int	flood_fill(char **map, int x, int y)
 {
 	if (y < 0 || x < 0 || map[y] == NULL || x >= (int)ft_strlen(map[y]))
+	{
+		printf("Out of bounds: x=%d, y=%d\n", x, y);
 		return (0); // fuera de mapa
-	if (is_invalid(map[y][x]))
-		return (0); // agujero
+	}
+//	if (is_invalid(map[y][x]))
+//		return (0); // agujero
 	if (ft_strchr("X1", map[y][x]))
 		return (1); // ya visitado o muro
 	map[y][x] = 'X'; // marcar como visitado
