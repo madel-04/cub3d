@@ -36,3 +36,13 @@ int	ft_atoi_nums(const char *str)
 	value = value * sign;
 	return (value);
 }
+
+int	ft_error(const char *message)
+{
+	if (message)
+	{
+		write(2, "Error\n", 6);
+		write(2, message, ft_strlen(message));
+	}
+	exit(EXIT_FAILURE);
+}

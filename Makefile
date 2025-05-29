@@ -2,21 +2,21 @@ NAME = cub3d
 CC = cc
 OBJ_DIR = obj/
 SRC_DIR = src/
-INCLUDES = -I includes/ -I libft/
+INCLUDES = -I includes/ -I libft/ -I minilibx-linux/
 LIBFT = libft/libft.a
 SRC =   $(SRC_DIR)main/main.c \
-		$(SRC_DIR)parser/cub.c \
 		$(SRC_DIR)parser/parse_map.c \
 		$(SRC_DIR)parser/ft_parse_x.c \
-		$(SRC_DIR)parser/parse_colors.c \
 		$(SRC_DIR)parser/parser_config.c \
 		$(SRC_DIR)utils/utils.c \
 		$(SRC_DIR)validations/validate_config.c \
 		$(SRC_DIR)validations/validate_map.c \
 		$(SRC_DIR)validations/validate_player.c \
-		$(SRC_DIR)validations/validate_textures.c 
+		$(SRC_DIR)validations/validate_textures.c \
+		$(SRC_DIR)data_init/config_init.c \
+		$(SRC_DIR)frees/free.c \
 
-MLX 		= -L minilibx-linux -lmlx_Linux -lX11 -lXext -lm
+MLX = -L minilibx-linux -lmlx_Linux -lX11 -lXext -lm
 
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline -Llibft -lft
