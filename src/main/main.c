@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -10,68 +9,10 @@
 /*   Updated: 2025-05-28 10:00:00 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*
-+---------------------+
-|   Leer línea (GNL)  |
-+---------------------+
-		  |
-		  v
-+-----------------------------+
-| ¿Es línea vacía o espacio? |
-+-----------------------------+
-		  |
-	+-----+-----+
-	|           |
-   Sí          No
-	|           |
-	v           v
-[Ignorar]   +-----------------------------+
-			| ¿Contiene solo caracteres   |
-			| válidos de mapa?           |
-			| [0,1,2,N,S,E,W, espacio]    |
-			+-----------------------------+
-						|
-				 +------+------+
-				 |             |
-				Sí            No
-				 |             |
-				 v             v
-	  +-------------------+  +---------------------------+
-	  | Agregar a lista   |  | ¿Es cabecera (R, NO, SO)? |
-	  | de líneas de mapa |  +---------------------------+
-	  +-------------------+             |
-									   +---> Sí: Parsear y guardar
-									   |
-									   +---> No: Error o ignorar
-
-
-+------------------------------+
-|  ¿Hay exactamente 1 jugador? |
-+------------------------------+
-		   |
-	 +-----+------+
-	 |            |
-	Sí           No
-	 |            |
-	 v            v
-[Continuar]   [Error: múltiples jugadores]
-
-+-----------------------------+
-| ¿El mapa está cerrado?     |
-| (Flood fill o bordes)      |
-+-----------------------------+
-		   |
-	 +-----+------+
-	 |            |
-	Sí           No
-	 |            |
-	 v            v
-[Correcto]    [Error: mapa abierto]
-+-----------------------------+ */
 
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_config	config;
 	int			fd;
@@ -86,13 +27,21 @@ int main(int argc, char **argv)
 		ft_putstr_fd("Error: El archivo debe tener extensión .cub\n", 2);
 		return (1);
 	}
+	fd = open(argv[1], O_DIRECTORY);
+	if (fd != -1)
+	{
+		close(fd);
+		ft_putstr_fd("Error: El archivo no puede ser un directorio.\n", 2);
+		return (1);
+	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
+		close(fd);
 		ft_putstr_fd("Error: No se pudo abrir el archivo.\n", 2);
 		return (1);
 	}
-	ft_config_init(&config); // & Inicializar la configuración
+	ft_config_init(&config); // & Inicializar la configuración 
 	if (!ft_parse_config(fd, &config)) // TODO
 	{
 		close(fd);
@@ -104,9 +53,9 @@ int main(int argc, char **argv)
 		free_config(&config);
 		return (ft_error("Error: Configuración inválida.\n"));
 	}
+	close(fd);
 	// & Aquí el código para leer el archivo y parsear la configuración
 	// & Programa del juego cub3d
-	close(fd);
 	free_config(&config);
 	return (0);
 }

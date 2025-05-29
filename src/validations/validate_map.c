@@ -15,7 +15,8 @@
 int	is_map_closed(char **map)
 {
 	char	**copy;
-	int		x, y;
+	int		x;
+	int		y;
 	int		valid;
 
 	copy = copy_map(map);
@@ -35,25 +36,36 @@ int	is_map_closed(char **map)
 
 char **copy_map(char **map)
 {
-	int		i = 0;
+	int		i;
 	char	**copy;
+	int		j;
 
+	i = 0;
 	while (map[i])
 		i++;
 	copy = malloc(sizeof(char *) * (i + 1));
 	if (!copy)
 		return (NULL);
-	for (int j = 0; j < i; j++)
-		copy[j] = ft_strdup(map[j]); // Asegúrate que strdup esté implementado
+	j = 0;
+	while (j < i)
+	{
+		copy[j] = ft_strdup(map[j]);
+		j++;
+	}
 	copy[i] = NULL;
 	return (copy);
 }
 
 int	find_player_start(char **map, int *x, int *y)
 {
-	for (int i = 0; map[i]; i++)
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i++])
 	{
-		for (int j = 0; map[i][j]; j++)
+		j = 0;
+		while (map[i][j++])
 		{
 			if (ft_strchr("0NSEW", map[i][j]))
 			{
@@ -63,10 +75,10 @@ int	find_player_start(char **map, int *x, int *y)
 			}
 		}
 	}
-	return (0); // no hay punto inicial
+	return (0)
 }
 
-int	is_invalid(char c)
+static int	is_invalid(char c)
 {
 	return (c == ' ' || c == '\0');
 }
@@ -79,9 +91,7 @@ int	flood_fill(char **map, int x, int y)
 		return (0); // agujero
 	if (ft_strchr("X1", map[y][x]))
 		return (1); // ya visitado o muro
-
 	map[y][x] = 'X'; // marcar como visitado
-
 	return (flood_fill(map, x + 1, y) &&
 			flood_fill(map, x - 1, y) &&
 			flood_fill(map, x, y + 1) &&
@@ -90,7 +100,9 @@ int	flood_fill(char **map, int x, int y)
 
 void	free_map(char **map)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (map[i])
 		free(map[i++]);
 	free(map);

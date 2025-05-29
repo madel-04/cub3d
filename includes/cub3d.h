@@ -33,12 +33,28 @@ typedef struct	s_config {
 }	t_config;
 
 // *** CONFIG INIT ***
-void ft_config_init(t_config *config);
+void	ft_config_init(t_config *config);
 
 // *** PARSEO ***
-int ft_parse_config(int fd, t_config *config);
+int 	ft_parse_config(int fd, t_config *config);
+int		ft_parse_texture(char *line, t_config *config, int index);
+int		ft_parse_color(char *line, int *color_array);
+int		ft_parse_map(int fd, t_config *config, char *first_line);
+
+// *** VALIDATIONS ***
+int		validate_config(t_config *config);
+int		has_valid_textures(char **textures);
+int		has_valid_player(char **map);
+void	free_map(char **map);
+int	flood_fill(char **map, int x, int y);
+int	find_player_start(char **map, int *x, int *y);
+char **copy_map(char **map);
+int	is_map_closed(char **map);
 
 // *** FREE ***
 void free_config(t_config *config);
+
+// *** UTILS ***
+int	ft_atoi_nums(const char *str);
 
 #endif

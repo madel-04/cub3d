@@ -40,7 +40,7 @@ static int ft_is_map_line(const char *line)
 static int ft_parse_element(char *line, t_config *config)
 {
 	if (ft_strncmp(line, "R ", 2) == 0)
-		return (ft_parse_resolution(line + 1, config));
+		return (ft_parse_resolution(line + 1, config)); // TODO
 	else if (ft_strncmp(line, "NO ", 3) == 0)
 		return (ft_parse_texture(line + 2, config, 0)); 
 	else if (ft_strncmp(line, "SO ", 3) == 0)
@@ -72,7 +72,7 @@ int ft_parse_config(int fd, t_config *config)
 		}
 		if (ft_is_map_line(line)) // línea de mapa (empieza con 0,1,N,...)
 		{
-			if (!ft_parse_map(fd, config, line)) // TODO pasa línea actual + resto
+			if (!ft_parse_map(fd, config, line))
 				return (free(line), 0);
 			return (1); // mapa se parsea hasta el final, termina aquí
 		}

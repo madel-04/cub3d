@@ -14,10 +14,12 @@
 
 int	has_valid_player(char **map)
 {
-	int	i = 0;
+	int	i;
 	int	j;
-	int	count = 0;
+	int	count;
 
+	i = 0;
+	count = 0;
 	while (map[i])
 	{
 		j = 0;

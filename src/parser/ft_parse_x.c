@@ -12,13 +12,14 @@
 
 #include "cub3d.h"
 
-int	ft_parse_texture(char *line, t_config *config, int index)
+int	ft_parse_texture(char *line, t_config *config, int i)
 {
-	while (*line == ' ') line++; // Saltar espacios iniciales
-	if (config->textures[index] != NULL)
-		return (ft_error("Textura duplicada.\n"));
-	config->textures[index] = ft_strdup(line);
-	if (!config->textures[index])
+	while (*line == ' '|| *line == '\t')
+		line++; // Saltar espacios iniciales
+	if (config->textures[i] != NULL)
+		return (ft_error("Textura duplicada.\n")); //TODO Duplicada o que ya se haya guardado lo mismo
+	config->textures[i] = ft_strdup(line);
+	if (!config->textures[i])
 		return (ft_error("Fallo de memoria al guardar textura.\n"));
 	return (1);
 }
@@ -29,19 +30,22 @@ int	ft_parse_color(char *line, int *color_array)
 	int		i;
 	int		value;
 
-	while (*line == ' ') line++; // saltar espacios
+	while (*line == ' ' || *line == '\t')
+		line++;
 	components = ft_split(line, ',');
-	if (!components || ft_strarray_len(components) != 3)
+	if (!components || ft_strarray_len(components) != 3) // TODO
 		return (ft_error("Color debe tener 3 componentes.\n"));
-	for (i = 0; i < 3; i++)
+	i = 0;
+	while (i < 3)
 	{
-		value = ft_atoi(components[i]);
+		value = ft_atoi_nums(components[i]);
 		if (value < 0 || value > 255)
 		{
 			ft_strarray_free(components);
 			return (ft_error("Color fuera de rango (0-255).\n"));
 		}
 		color_array[i] = value;
+		i++;
 	}
 	ft_strarray_free(components);
 	return (1);
