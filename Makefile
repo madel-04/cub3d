@@ -14,11 +14,13 @@ SRC =   $(SRC_DIR)main/main.c \
 		$(SRC_DIR)validations/validate_player.c \
 		$(SRC_DIR)validations/validate_textures.c \
 		$(SRC_DIR)data_init/config_init.c \
+		$(SRC_DIR)data_init/init_game.c \
 		$(SRC_DIR)frees/free.c \
+		$(SRC_DIR)render/render.c \
 
-MLX = -L minilibx-linux -lmlx_Linux -lX11 -lXext -lm
+MLX = -Lminilibx-linux -lmlx -lX11 -lXext -lm
 
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 LDFLAGS = -lreadline -Llibft -lft
 
 OBJ = $(SRC:$(SRC_DIR)%= $(OBJ_DIR)%)
@@ -41,7 +43,7 @@ minilibx-linux/libmlx.a:
 
 $(NAME): $(OBJ) $(LIBFT) minilibx-linux/libmlx.a
 		@echo "Compilando el ejecutable: $(NAME)"
-		@$(CC) $(CFLAGS) $(INCLUDES) $(MLX) -o $(NAME) $(OBJ) $(LDFLAGS)
+		@$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJ) $(MLX) $(LDFLAGS)
 		@echo "Compilación completada"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)

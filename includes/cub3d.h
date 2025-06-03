@@ -6,7 +6,7 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/05/29 23:06:13 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:43:50 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-typedef struct	s_config {
+typedef struct	s_config
+{
 	int		res_x;
 	int		res_y;                   // <- R línea
 	char	*textures[4];            // [NO, SO, WE, EA]  <- líneas de textura 
@@ -33,8 +34,53 @@ typedef struct	s_config {
 	char	**map_lines;            // <- Lista de líneas del mapa
 }	t_config;
 
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*data;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int		width;
+	int		height;
+}	t_img;
+
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	move_speed; // Velocidad de movimiento
+	double	rot_speed;  // Velocidad de rotación
+}		t_player;
+
+typedef struct s_game
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_img		textures[4]; // NO, SO, WE, EA
+	t_img		img; // imagen del frame actual
+	t_config	config;
+	t_player	player;
+	int			win_width;
+	int			win_height;
+}			t_game;
+
+
+
 // *** CONFIG INIT ***
 void	ft_config_init(t_config *config);
+int		init_game(t_game *game, t_config *config);
+int		ft_init_player(t_game *game, char **map_lines);
+
+// *** RENDER ***
+int		get_rgb(int color[3]);
+void	put_pixel(t_img *img, int x, int y, int color);
+void	draw_background(t_game *game);
+int		render_frame(t_game *game);
 
 // *** PARSEO ***
 int 	ft_parse_config(int fd, t_config *config);

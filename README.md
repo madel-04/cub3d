@@ -111,3 +111,9 @@ Dentro del mapa:
  - Comprobar que el archivo de texturas sea .xpm
  - Comprobar que se puede abrir el archivo de texturas (y de que exite)
  - Comprobar que la línea de colores solo tiene números y ","
+
+
+
+ Falla si:
+ - Tiene muchas líneas vacías al final
+ - 
