@@ -1,0 +1,10 @@
+/* XPM */
+static char *redbrick[] = {
+"4 4 2 1",
+"A c #8B0000",
+"B c #A52A2A",
+"ABAB",
+"BABA",
+"ABAB",
+"BABA"
+};

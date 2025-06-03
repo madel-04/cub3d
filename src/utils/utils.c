@@ -37,7 +37,7 @@ char	**ft_realloc_strarray(char **old, int old_count, int new_alloc)
 		i++;
 	}
 	new_arr[i] = NULL;
-	free(old); // Solo liberar el array de punteros, no las strings
+	free(old);
 	return (new_arr);
 }
 
@@ -46,7 +46,7 @@ void	free_strarray(char **arr)
 	int	i;
 
 	if (!arr)
-		return;
+		return ;
 	i = 0;
 	while (arr[i])
 	{
@@ -61,7 +61,7 @@ void	ft_strarray_free(char **arr)
 	int	i;
 
 	if (!arr)
-		return;
+		return ;
 	i = 0;
 	while (arr[i])
 	{
@@ -73,8 +73,9 @@ void	ft_strarray_free(char **arr)
 
 int	ft_strarray_len(char **arr)
 {
-	int	count = 0;
+	int	count;
 
+	count = 0;
 	if (!arr)
 		return (0);
 	while (arr[count])

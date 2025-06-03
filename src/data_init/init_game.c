@@ -12,30 +12,30 @@
 
 #include "cub3d.h"
 
-int init_game(t_game *game, t_config *config)
+int	init_game(t_game *game, t_config *config)
 {
 	game->win_width = 800;
 	game->win_height = 600;
 	game->config = *config;
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
-		return (ft_error("Error al inicializar mlx\n")); // Error initializing MLX
-	game->win_ptr = mlx_new_window(game->mlx_ptr, game->win_width, game->win_height, "Cub3D");
+		return (ft_error("Error al inicializar mlx\n"));
+	game->win_ptr = mlx_new_window(game->mlx_ptr, game->win_width,
+			game->win_height, "Cub3D");
 	if (!game->win_ptr)
 	{
 		mlx_destroy_display(game->mlx_ptr);
 		free(game->mlx_ptr);
-		return (ft_error("Error al crear la ventana\n")); // Error creating window
+		return (ft_error("Error al crear la ventana\n"));
 	}
 	ft_init_player(game, config->map_lines);
-
 	return (1);
 }
 
 int	ft_init_player(t_game *game, char **map_lines)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (map_lines[i])
@@ -46,7 +46,7 @@ int	ft_init_player(t_game *game, char **map_lines)
 			if (map_lines[i][j] == 'N' || map_lines[i][j] == 'S' ||
 				map_lines[i][j] == 'E' || map_lines[i][j] == 'W')
 			{
-				game->player.x = j + 0.5; // Player position
+				game->player.x = j + 0.5;
 				game->player.y = i + 0.5;
 				if (map_lines[i][j] == 'N')
 				{
@@ -82,5 +82,5 @@ int	ft_init_player(t_game *game, char **map_lines)
 		}
 		i++;
 	}
-	return (ft_error("Error: No se encontró el jugador en el mapa\n")); // Player not found in map
+	return (ft_error("Error: No se encontró el jugador en el mapa\n"));
 }

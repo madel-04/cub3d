@@ -17,6 +17,7 @@ SRC =   $(SRC_DIR)main/main.c \
 		$(SRC_DIR)data_init/init_game.c \
 		$(SRC_DIR)frees/free.c \
 		$(SRC_DIR)render/render.c \
+		$(SRC_DIR)render/get_textures.c \
 
 MLX = -Lminilibx-linux -lmlx -lX11 -lXext -lm
 

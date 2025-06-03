@@ -25,36 +25,36 @@ int	ft_is_line_blank(const char *line)
 
 int	ft_is_map_line(const char *line)
 {
-    int	has_map_char;
-	const char *tmp;
+	int			has_map_char;
+	const char	*tmp;
 
 	has_map_char = 0;
-    while (*line && ft_isspace(*line))
-        line++;
-    while (*line)
-    {
-        if (*line == '0' || *line == '1' ||
-            *line == 'N' || *line == 'S' ||
-            *line == 'E' || *line == 'W' ||
-			*line == ' ')
-            has_map_char = 1;
-        else if (ft_isspace(*line))
-        {
-            tmp = line;
-            while (*tmp && ft_isspace(*tmp))
-                tmp++;
-            if (*tmp != '\0')
-                return (0);
-            break;
-        }
-        else
-            return (0);
-        line++;
-    }
-    return (has_map_char);
+	while (*line && ft_isspace(*line))
+		line++;
+	while (*line)
+	{
+		if (*line == '0' || *line == '1'
+			|| *line == 'N' || *line == 'S'
+			|| *line == 'E' || *line == 'W'
+			|| *line == ' ')
+			has_map_char = 1;
+		else if (ft_isspace(*line))
+		{
+			tmp = line;
+			while (*tmp && ft_isspace(*tmp))
+				tmp++;
+			if (*tmp != '\0')
+				return (0);
+			break;
+		}
+		else
+			return (0);
+		line++;
+	}
+	return (has_map_char);
 }
 
-static int ft_parse_element(char *line, t_config *config)
+static int	ft_parse_element(char *line, t_config *config)
 {
 	if (ft_strncmp(line, " ", 1) == 0 || ft_strncmp(line, "\t", 1) == 0)
 		return (1); // saltar espacio inicial
@@ -76,7 +76,7 @@ static int ft_parse_element(char *line, t_config *config)
 	return (0); // línea no reconocida
 }
 
-int ft_parse_config(int fd, t_config *config)
+int	ft_parse_config(int fd, t_config *config)
 {
 	char	*line;
 	int		ret;

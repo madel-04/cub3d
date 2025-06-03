@@ -14,13 +14,14 @@
 
 int	ft_parse_texture(char *line, t_config *config, int i)
 {
-	while (*line == ' '|| *line == '\t')
+	while (*line == ' ' || *line == '\t')
 		line++; // Saltar espacios iniciales
 	if (config->textures[i] != NULL)
 		return (ft_error("Textura duplicada.\n")); //TODO Duplicada o que ya se haya guardado lo mismo
 	config->textures[i] = ft_strdup(line);
 	if (!config->textures[i])
 		return (ft_error("Fallo de memoria al guardar textura.\n"));
+	printf("a textura es %s\n", config->textures[i]);
 	return (1);
 }
 

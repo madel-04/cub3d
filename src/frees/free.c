@@ -12,12 +12,12 @@
 
 #include "cub3d.h"
 
-void free_config(t_config *config)
+void	free_config(t_config *config)
 {
 	int	i;
 
 	if (!config)
-		return;
+		return ;
 	if (config->map_lines)
 	{
 		i = 0;

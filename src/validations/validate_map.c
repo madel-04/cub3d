@@ -34,7 +34,7 @@ int	is_map_closed(char **map)
 	return (1);
 }
 
-char **copy_map(char **map)
+char	**copy_map(char **map)
 {
 	int		i;
 	char	**copy;
@@ -88,10 +88,10 @@ int	flood_fill(char **map, int x, int y)
 	if (ft_strchr("X1", map[y][x]))
 		return (1); // ya visitado o muro
 	map[y][x] = 'X'; // marcar como visitado
-	return (flood_fill(map, x + 1, y) &&
-			flood_fill(map, x - 1, y) &&
-			flood_fill(map, x, y + 1) &&
-			flood_fill(map, x, y - 1));
+	return (flood_fill(map, x + 1, y)
+		&& flood_fill(map, x - 1, y)
+		&& flood_fill(map, x, y + 1)
+		&& flood_fill(map, x, y - 1));
 }
 
 void	free_map(char **map)

@@ -14,9 +14,9 @@
 
 int	close_window(t_game *game)
 {
-    mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-    exit(0);
-    return (0);
+	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	exit(0);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -26,14 +26,15 @@ int	main(int argc, char **argv)
 	t_game		game;
 
 	if (argc != 2)
-		return(ft_putstr_fd("Error: Número incorrecto de argumentos.\n", 2), 1);
+		return (ft_putstr_fd("Error: Número incorrecto de argumentos.\n", 2), 1);
 	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4) != 0)
-		return(ft_putstr_fd("Error: El archivo debe tener extensión .cub\n", 2), 1);
+		return (ft_putstr_fd("Error: El archivo debe tener extensión .cub\n", 2), 1);
 	fd = open(argv[1], O_DIRECTORY);
 	if (fd != -1)
 	{
 		close(fd);
-		return(ft_putstr_fd("Error: El archivo no puede ser un directorio.\n", 2),1);
+		return (ft_putstr_fd("Error: El archivo no puede ser un directorio.\n",
+				2), 1);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
@@ -48,7 +49,7 @@ int	main(int argc, char **argv)
 		free_config(&config);
 		return (ft_error("Error: Fallo al parsear el archivo.\n"));
 	}
-	if (!validate_config(&config)) // TODO
+	if (!validate_config(&config, &game)) // TODO
 	{
 		free_config(&config);
 		return (ft_error("Error: Configuración inválida.\n"));

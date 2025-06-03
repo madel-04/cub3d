@@ -12,9 +12,9 @@
 
 #include "cub3d.h"
 
-int get_rgb(int color[3])
+int	get_rgb(int color[3])
 {
-    return (color[0] << 16 | color[1] << 8 | color[2]);
+	return (color[0] << 16 | color[1] << 8 | color[2]);
 }
 
 void	put_pixel(t_img *img, int x, int y, int color)
@@ -29,11 +29,14 @@ void	put_pixel(t_img *img, int x, int y, int color)
 
 void	draw_background(t_game *game)
 {
-	int	x, y;
-	int	floor_color = get_rgb(game->config.floor_color);
-	int	ceiling_color = get_rgb(game->config.ceiling_color);
+	int	x;
+	int	y;
+	int	floor_color;
+	int	ceiling_color;
 
 	y = 0;
+	floor_color = get_rgb(game->config.floor_color);
+	ceiling_color = get_rgb(game->config.ceiling_color);
 	while (y < game->win_height)
 	{
 		x = 0;
@@ -51,16 +54,16 @@ void	draw_background(t_game *game)
 
 int	render_frame(t_game *game)
 {
-	game->img.img_ptr = mlx_new_image(game->mlx_ptr, game->win_width, game->win_height);
+	game->img.img_ptr = mlx_new_image(game->mlx_ptr, game->win_width,
+			game->win_height);
 	game->img.data = mlx_get_data_addr(game->img.img_ptr, &game->img.bpp,
 			&game->img.size_line, &game->img.endian);
 	game->img.width = game->win_width;
 	game->img.height = game->win_height;
-
 	draw_background(game);
 	// Aquí luego irá raycasting...
-
-	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img_ptr,
+		0, 0);
 	mlx_destroy_image(game->mlx_ptr, game->img.img_ptr);
 	return (0);
 }

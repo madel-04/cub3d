@@ -1,0 +1,10 @@
+/* XPM */
+static char *purplestone[] = {
+"4 4 2 1",
+"A c #800080",
+"B c #4B0082",
+"ABBA",
+"BAAB",
+"AABB",
+"BBAA"
+};

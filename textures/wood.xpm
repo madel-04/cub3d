@@ -1,0 +1,10 @@
+/* XPM */
+static char *wood[] = {
+"4 4 2 1",
+"A c #8B4513",
+"B c #A0522D",
+"AABA",
+"ABAA",
+"BAAB",
+"ABAB"
+};
