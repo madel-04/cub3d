@@ -12,31 +12,6 @@
 
 #include "cub3d.h"
 
-int	ft_atoi_nums(const char *str)
-{
-	long long	value;
-	int			sign;
-
-	sign = 1;
-	value = 0;
-	while ((*str == ' ') || (*str == '\f') || (*str == '\n') || (*str == '\r')
-		|| (*str == '\t') || (*str == '\v'))
-		str++;
-	if (*str == '-')
-		sign *= -1;
-	if ((*str == '+') || (*str == '-'))
-		str++;
-	while (ft_isdigit(*str))
-	{
-		value = value * 10 + (*str - '0');
-		str++;
-	}
-	if (*str != '\0')
-		return (0);
-	value = value * sign;
-	return (value);
-}
-
 int	ft_error(const char *message)
 {
 	if (message)

@@ -33,12 +33,12 @@ int	ft_parse_color(char *line, int *color_array)
 	while (*line == ' ' || *line == '\t')
 		line++;
 	components = ft_split(line, ',');
-	if (!components || ft_strarray_len(components) != 3) // TODO
+	if (!components || ft_strarray_len(components) != 3)
 		return (ft_error("Color debe tener 3 componentes.\n"));
 	i = 0;
 	while (i < 3)
 	{
-		value = ft_atoi_nums(components[i]);
+		value = ft_atoi(components[i]);
 		if (value < 0 || value > 255)
 		{
 			ft_strarray_free(components);

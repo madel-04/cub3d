@@ -16,7 +16,6 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include "mlx.h"
-// TODO # include "get_next_line.h"
 # include <math.h>
 # include <fcntl.h> 
 # include <stdio.h>
@@ -104,7 +103,6 @@ int		is_map_closed(char **map);
 void free_config(t_config *config);
 
 // *** UTILS ***
-int		ft_atoi_nums(const char *str);
 int		ft_error(const char *message);
 char	**ft_realloc_strarray(char **old, int old_count, int new_alloc);
 void	free_strarray(char **arr);
