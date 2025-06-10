@@ -63,7 +63,6 @@ int	ft_parse_map(int fd, t_config *config, char *first_line)
 	int		ret;
 	char	*temp;
 
-	printf("Parsing map...\n");
 	lines_alloc = 32;
 	lines_count = 0;
 	map = malloc(sizeof(char *) * (lines_alloc + 1));

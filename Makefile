@@ -18,6 +18,7 @@ SRC =   $(SRC_DIR)main/main.c \
 		$(SRC_DIR)frees/free.c \
 		$(SRC_DIR)render/render.c \
 		$(SRC_DIR)render/get_textures.c \
+		$(SRC_DIR)teclas/handle_keys.c \
 
 MLX = -Lminilibx-linux -lmlx -lX11 -lXext -lm
 

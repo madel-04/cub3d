@@ -6,7 +6,7 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:00:00 by madel-va          #+#    #+#             */
-/*   Updated: 2025/06/03 07:01:43 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/06/10 21:56:41 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ int	main(int argc, char **argv)
 		free_config(&config);
 		return (ft_error("Error: Fallo al inicializar el juego.\n"));
 	}
+	config.north = load_texture(game.mlx_ptr, config.textures[0]);
+	config.south = load_texture(game.mlx_ptr, config.textures[1]);
+	config.west  = load_texture(game.mlx_ptr, config.textures[2]);
+	config.east  = load_texture(game.mlx_ptr, config.textures[3]);
+	mlx_hook(game.win_ptr, 2, 1L<<0, handle_key, &game);        	// Key press
+	mlx_hook(game.win_ptr, 3, 1L<<1, handle_key_release, &game);	 // Key release
 	mlx_hook(game.win_ptr, 17, 0, close_window, &game);
 	mlx_loop_hook(game.mlx_ptr, render_frame, &game);
 	mlx_loop(game.mlx_ptr);

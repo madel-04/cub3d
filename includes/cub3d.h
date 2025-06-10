@@ -6,7 +6,7 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/06/02 13:43:50 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/06/10 21:57:26 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 # include <unistd.h>
 # include <stdbool.h>
 
+# define KEY_ESC     65307
+# define KEY_W       119
+# define KEY_A       97
+# define KEY_S       115
+# define KEY_D       100
+# define KEY_LEFT    65361
+# define KEY_RIGHT   65363
+
 typedef struct s_texture
 {
 	void	*img;
@@ -40,7 +48,6 @@ typedef struct	s_config
 	int			floor_color[3];          // <- F línea
 	int			ceiling_color[3];        // <- C línea
 	char		**map_lines;            // <- Lista de líneas del mapa
-//	char		*textures_path[4];
 	t_texture	north;
 	t_texture	south;
 	t_texture	east;
@@ -68,6 +75,12 @@ typedef struct s_player
 	double	plane_y;
 	double	move_speed; // Velocidad de movimiento
 	double	rot_speed;  // Velocidad de rotación
+	int		move_forward;
+	int		move_backward;
+	int		move_left;
+	int		move_right;
+	int		turn_left;
+	int		turn_right;
 }		t_player;
 
 typedef struct s_game
@@ -126,5 +139,9 @@ int			ft_strarray_len(char **arr);
 int			ft_isspace(int c);
 char		*ft_tabtospaces(char *str);
 char		*ft_strdup_textures(const char *s);
+
+// *** KEYS ***
+int			handle_key(int keycode, t_game *game);
+int			handle_key_release(int keycode, t_game *game);
 
 #endif
