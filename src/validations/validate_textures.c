@@ -23,10 +23,10 @@ int	has_valid_textures(char **textures, t_config *config, t_game *game)
 	{
 		if (!textures[i] || ft_strlen(textures[i]) < 5)
 			return (0); // Textura no válida o demasiado corta
-		printf("AAAAAAAAAAAAAAA%s\n", textures[i]);
+/*		printf("AAAAAAAAAAAAAAA%s\n", textures[i]);
 		if (ft_strncmp(textures[i] + ft_strlen(textures[i]) - 5, ".xpm", 4) != 0)
 			return (0); // Formato de textura no válido
-		/*if (i == 0)
+		if (i == 0)
 			config->north = load_texture(game->mlx_ptr, textures[i]);
 		if (i == 1)
 			config->south = load_texture(game->mlx_ptr, textures[i]);

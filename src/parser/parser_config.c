@@ -56,11 +56,15 @@ int	ft_is_map_line(const char *line)
 
 static int	ft_parse_element(char *line, t_config *config)
 {
-	if (ft_strncmp(line, " ", 1) == 0 || ft_strncmp(line, "\t", 1) == 0)
-		return (1); // saltar espacio inicial
-	else if (ft_strncmp(line, "R ", 2) == 0)
-		//return (ft_parse_resolution(line + 1, config)); // TODO
+	while (*line == ' ' || *line == '\t')
+		line++;
+	if (*line == '\0') // Línea vacía después de quitar espacios
 		return (1);
+	//if (ft_strncmp(line, " ", 1) == 0 || ft_strncmp(line, "\t", 1) == 0)
+	//	return (1);
+	//else if (ft_strncmp(line, "R ", 2) == 0)
+		//return (ft_parse_resolution(line + 1, config)); // TODO
+		//return (1);
 	else if (ft_strncmp(line, "NO ", 3) == 0)
 		return (ft_parse_texture(line + 2, config, 0)); 
 	else if (ft_strncmp(line, "SO ", 3) == 0)

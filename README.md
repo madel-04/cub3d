@@ -117,3 +117,9 @@ Dentro del mapa:
  Falla si:
  - Tiene muchas líneas vacías al final
  - 
+
+
+
+ Pruebas de leaks con valgrind:
+ - valgrind --track-fds=yes ./cub3d test.cub 
+ - valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./cub3d test.cub

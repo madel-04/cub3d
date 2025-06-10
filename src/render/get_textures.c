@@ -19,10 +19,11 @@ t_texture	load_texture(void  *mlx, char *path)
 {
 	t_texture	texture;
 
-	if (access(path, F_OK) != 0)
+	printf("%s\n", path);
+	if (access("./textures/greystone.xpm", F_OK) != 0)
 	{
 		perror("Error acceso a textura");
-		printf("Ruta usada: %s\n", path);
+		printf("Ruta usada: %shhhh\n", "./textures/greystone.xpm");
 		exit(EXIT_FAILURE);
 	}
 	texture.img = mlx_xpm_file_to_image(mlx, path, &texture.width, &texture.height);

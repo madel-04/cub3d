@@ -29,3 +29,13 @@ void	free_config(t_config *config)
 	while (i < 4 && config->textures[i])
 		free(config->textures[i++]);
 }
+
+void	free_game(t_game *game)
+{
+	if (!game)
+		return ;
+	if (game->mlx_ptr)
+		free(game->mlx_ptr);
+	if (game->win_ptr)
+		free(game->win_ptr);
+}

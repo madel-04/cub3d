@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
+
 # define CUB3D_H
 
 # include "libft.h"
@@ -35,11 +36,11 @@ typedef struct	s_config
 {
 	int			res_x;
 	int			res_y;                   // <- R línea
-	char			*textures[4];            // [NO, SO, WE, EA]  <- líneas de textura 
+	char		*textures[4];            // [NO, SO, WE, EA]  <- líneas de textura 
 	int			floor_color[3];          // <- F línea
 	int			ceiling_color[3];        // <- C línea
 	char		**map_lines;            // <- Lista de líneas del mapa
-	char		*textures_path[4];
+//	char		*textures_path[4];
 	t_texture	north;
 	t_texture	south;
 	t_texture	east;
@@ -113,7 +114,8 @@ char 		**copy_map(char **map);
 int			is_map_closed(char **map);
 
 // *** FREE ***
-void free_config(t_config *config);
+void 		free_config(t_config *config);
+void		free_game(t_game *game);
 
 // *** UTILS ***
 int			ft_error(const char *message);
@@ -123,5 +125,6 @@ void		ft_strarray_free(char **arr);
 int			ft_strarray_len(char **arr);
 int			ft_isspace(int c);
 char		*ft_tabtospaces(char *str);
+char		*ft_strdup_textures(const char *s);
 
 #endif
