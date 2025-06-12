@@ -31,6 +31,8 @@ int	ft_parse_color(char *line, int *color_array)
 	int		i;
 	int		value;
 
+	if (color_array[0] != -1 || color_array[1] != -1 || color_array[2] != -1 )
+		return(ft_error("Error: los colores ya han sido declarados\n"));
 	while (*line == ' ' || *line == '\t')
 		line++;
 	components = ft_split(line, ',');
@@ -43,7 +45,7 @@ int	ft_parse_color(char *line, int *color_array)
 	i = 0;
 	while (i < 3)
 	{
-		value = ft_atoi(components[i]);
+		value = ft_atoi_2(components[i]);
 		if (value < 0 || value > 255)
 		{
 			ft_strarray_free(components);

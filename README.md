@@ -137,6 +137,6 @@ Dentro del mapa:
 
 ## Corregir
 - Colores
-- Colores repetidos
+- Colores repetidos DONE
 - Leaks
 - COsas al final del mapa

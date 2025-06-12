@@ -144,6 +144,7 @@ int			ft_isspace(int c);
 char		*ft_tabtospaces(char *str);
 char		*ft_strdup_textures(const char *s);
 int			ft_is_line_blank(const char *line);
+int			ft_atoi_2(const char *str);
 
 
 // *** KEYS ***
