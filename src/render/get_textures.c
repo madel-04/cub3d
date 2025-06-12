@@ -6,15 +6,13 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 09:26:40 by madel-va          #+#    #+#             */
-/*   Updated: 2025/06/10 21:39:55 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/06/11 13:46:16 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <unistd.h>
-#include <string.h>
 
-void print_first_diff(const char *s1, const char *s2)
+/*void print_first_diff(const char *s1, const char *s2)
 {
     int i = 0;
     while (s1[i] && s2[i]) {
@@ -29,13 +27,13 @@ void print_first_diff(const char *s1, const char *s2)
 	} else {
 		printf("Las cadenas son iguales\n");
 	}
-}
+}*/
 
-t_texture	load_texture(void  *mlx, char *path)
+t_texture	load_texture(void *mlx, char *path)
 {
 	t_texture	texture;
-	(void)mlx;
 
+	(void)mlx;
 //	printf("%s\n", path);
 //	print_first_diff(path, "./textures/greystone.xpm");
 //	if (strcmp(path, "./textures/greystone.xpm") != 0)
@@ -46,11 +44,11 @@ t_texture	load_texture(void  *mlx, char *path)
 	//	printf("Ruta usada: %s\n", "./textures/greystone.xpm");
 		exit(EXIT_FAILURE);
 	}
-	texture.img = mlx_xpm_file_to_image(mlx, path, &texture.width, &texture.height);
+	texture.img = mlx_xpm_file_to_image(mlx, path, &texture.width,
+			&texture.height);
 	if (!texture.img)
 		ft_error("Error cargando texturas\n");
-	texture.pixels = (int *)mlx_get_data_addr(texture.img, &(int){0}, &(int){0}, &(int){0});
+	texture.pixels = (int *)mlx_get_data_addr(texture.img, &(int){0},
+			&(int){0}, &(int){0});
 	return (texture);
-	
 }
-

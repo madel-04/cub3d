@@ -6,7 +6,7 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/06/10 21:57:26 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/06/11 13:33:06 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,10 @@ typedef struct s_game
 void		ft_config_init(t_config *config);
 int			init_game(t_game *game, t_config *config);
 int			ft_init_player(t_game *game, char **map_lines);
+void		set_orientation_north(t_game *game);
+void		set_orientation_south(t_game *game);
+void		set_orientation_east(t_game *game);
+void		set_orientation_west(t_game *game);
 
 // *** RENDER ***
 int			get_rgb(int color[3]);
@@ -139,6 +143,8 @@ int			ft_strarray_len(char **arr);
 int			ft_isspace(int c);
 char		*ft_tabtospaces(char *str);
 char		*ft_strdup_textures(const char *s);
+int			ft_is_line_blank(const char *line);
+
 
 // *** KEYS ***
 int			handle_key(int keycode, t_game *game);

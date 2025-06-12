@@ -12,49 +12,7 @@
 
 #include "cub3d.h"
 
-char	*ft_tabtospaces(char *str)
-{
-	size_t	len;
-	size_t	i;
-	size_t	j;
-	char	*new_str;
-	int		k;
-
-	if (!str)
-		return NULL;
-	len = ft_strlen(str);
-	k = 0;
-	i = 0;
-	while (i < len)
-	{
-		if (str[i] == '\t')
-			k++;
-		i++;
-	}
-	new_str = malloc(len + (k * 3) + 1);
-	if (!new_str)
-		return NULL;
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == '\t')
-		{
-			new_str[j++] = ' ';
-			new_str[j++] = ' ';
-			new_str[j++] = ' ';
-			new_str[j++] = ' ';
-		}
-		else
-			new_str[j++] = str[i];
-		i++;
-	}
-	new_str[j] = '\0';
-	return new_str;
-}
-
-
-int	ft_parse_map(int fd, t_config *config, char *first_line)
+/*int	ft_parse_map(int fd, t_config *config, char *first_line)
 {
 	char	**map;
 	char	*line;
@@ -99,6 +57,69 @@ int	ft_parse_map(int fd, t_config *config, char *first_line)
 	}
 	if (ret == 0 && line)
 		free(line);
+	map[lines_count] = NULL;
+	config->map_lines = map;
+	return (1);
+}*/
+static int	ft_add_map_line(char *line, char ***map,
+	t_config *config, int *lines_count)
+{
+	char	**tmp;
+	int		lines_alloc;
+
+	(void)config;
+	lines_alloc = 32;
+	while (*lines_count >= lines_alloc)
+		lines_alloc *= 2;
+	tmp = ft_realloc_strarray(*map, *lines_count, lines_alloc);
+	if (!tmp)
+	{
+		free_strarray(*map);
+		return (0);
+	}
+	*map = tmp;
+	(*map)[(*lines_count)++] = line;
+	return (1);
+}
+
+static int	ft_read_map_lines(int fd, char ***map, int *lines_count)
+{
+	char	*line;
+	char	*temp;
+
+	while (get_next_line(fd, &line) > 0)
+	{
+		temp = line;
+		line = ft_tabtospaces(temp);
+		free(temp);
+		if (!line)
+			return (free_strarray(*map), 0);
+		printf("Read line: %s\n", line);
+		if (!ft_is_map_line(line))
+		{
+			free(line);
+			break ;
+		}
+		if (!ft_add_map_line(line, map, NULL, lines_count))
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_parse_map(int fd, t_config *config, char *first_line)
+{
+	char	**map;
+	int		lines_count;
+
+	lines_count = 0;
+	map = malloc(sizeof(char *) * 33);
+	if (!map)
+		return (0);
+	map[lines_count++] = ft_strdup(first_line);
+	if (!map[0])
+		return (free(map), 0);
+	if (!ft_read_map_lines(fd, &map, &lines_count))
+		return (0);
 	map[lines_count] = NULL;
 	config->map_lines = map;
 	return (1);

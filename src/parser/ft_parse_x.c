@@ -15,7 +15,7 @@
 int	ft_parse_texture(char *line, t_config *config, int i)
 {
 	while (*line == ' ' || *line == '\t')
-		line++; // Saltar espacios iniciales
+		line++;
 	if (config->textures[i] != NULL)
 		return (ft_error("Textura duplicada.\n"));
 	config->textures[i] = ft_strdup_textures(line);
@@ -35,7 +35,11 @@ int	ft_parse_color(char *line, int *color_array)
 		line++;
 	components = ft_split(line, ',');
 	if (!components || ft_strarray_len(components) != 3)
+	{
+		if (components)
+			ft_strarray_free(components);
 		return (ft_error("Color debe tener 3 componentes.\n"));
+	}
 	i = 0;
 	while (i < 3)
 	{

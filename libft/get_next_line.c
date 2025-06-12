@@ -98,5 +98,11 @@ int				get_next_line(int fd, char **line)
 	i = ft_loopbuffer(extra_text, fd);
 	if (!i && !extra_text[fd])
 		return (0);
-	return (ft_next_line_save_extra(extra_text, line, fd));
+	i = ft_next_line_save_extra(extra_text, line, fd);
+	// --- SOLUCIÓN: liberar el buffer si ya no queda nada ---
+	if (i == 0 && extra_text[fd] && extra_text[fd][0] == '\0') // Si ya no hay texto pendiente, libera por seguridad
+	{
+		ft_strdel(&extra_text[fd]);
+	}
+	return (i);
 }

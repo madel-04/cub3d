@@ -31,6 +31,7 @@ int	handle_key(int keycode, t_game *game)
 		game->player.turn_left = 1;
 	if (keycode == KEY_RIGHT)
 		game->player.turn_right = 1;
+	printf("%i\n", game->player.move_forward);
 	return (0);
 }
 
@@ -48,5 +49,6 @@ int	handle_key_release(int keycode, t_game *game)
 		game->player.turn_left = 0;
 	if (keycode == KEY_RIGHT)
 		game->player.turn_right = 0;
+	printf("%i\n", game->player.move_forward);
 	return (0);
 }

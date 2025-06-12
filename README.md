@@ -123,3 +123,20 @@ Dentro del mapa:
  Pruebas de leaks con valgrind:
  - valgrind --track-fds=yes ./cub3d test.cub 
  - valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./cub3d test.cub
+
+
+## Raycasting
+1. Preparar el entorno de renderizado:
+ - Función de render_frame y dentro de esa función un draw_background o algo asi
+
+2. Implementación del algoritmo de raycasting
+ - una función tipo raycasting_draw() que se llame desde render_frame
+ - dentro de la función 
+
+
+
+## Corregir
+- Colores
+- Colores repetidos
+- Leaks
+- COsas al final del mapa

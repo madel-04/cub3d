@@ -9,12 +9,15 @@ SRC =   $(SRC_DIR)main/main.c \
 		$(SRC_DIR)parser/ft_parse_x.c \
 		$(SRC_DIR)parser/parser_config.c \
 		$(SRC_DIR)utils/utils.c \
+		$(SRC_DIR)utils/utils_array.c \
+		$(SRC_DIR)utils/utils_tab.c \
 		$(SRC_DIR)validations/validate_config.c \
 		$(SRC_DIR)validations/validate_map.c \
 		$(SRC_DIR)validations/validate_player.c \
 		$(SRC_DIR)validations/validate_textures.c \
 		$(SRC_DIR)data_init/config_init.c \
 		$(SRC_DIR)data_init/init_game.c \
+		$(SRC_DIR)data_init/set_orientation.c \
 		$(SRC_DIR)frees/free.c \
 		$(SRC_DIR)render/render.c \
 		$(SRC_DIR)render/get_textures.c \
@@ -22,7 +25,7 @@ SRC =   $(SRC_DIR)main/main.c \
 
 MLX = -Lminilibx-linux -lmlx -lX11 -lXext -lm
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
 LDFLAGS = -lreadline -Llibft -lft
 
 OBJ = $(SRC:$(SRC_DIR)%= $(OBJ_DIR)%)
