@@ -86,23 +86,28 @@ static int	ft_read_map_lines(int fd, char ***map, int *lines_count)
 {
 	char	*line;
 	char	*temp;
+	int		i;
 
-	while (get_next_line(fd, &line) > 0)
+	while ((i = get_next_line(fd, &line)) >= 0)
 	{
 		temp = line;
 		line = ft_tabtospaces(temp);
 		free(temp);
 		if (!line)
 			return (free_strarray(*map), 0);
-		printf("Read line: %s\n", line);
-		if (!ft_is_map_line(line))
+		printf("Read line map: %d\n", *line);
+		if (!ft_is_map_line(line) && !ft_isspace(*line) && *line != '\0')
 		{
 			free(line);
-			break ;
+		//	break ;
+			ft_error("No puede haber configuraciones después del mapa\n");
 		}
 		if (!ft_add_map_line(line, map, NULL, lines_count))
 			return (0);
+		if (i == 0)
+			break;
 	}
+	free(line);
 	return (1);
 }
 

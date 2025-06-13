@@ -138,6 +138,7 @@ int	ft_parse_config(int fd, t_config *config)
 			free(line);
 		}
 	}
+	free(line);
 	printf("Finished parsing configuration.\n");
 	if (ret < 0)
 		return (0);

@@ -71,6 +71,7 @@ int	main(int argc, char **argv)
 	mlx_loop(game.mlx_ptr);
 	mlx_destroy_window(game.mlx_ptr, game.win_ptr);
 	mlx_destroy_display(game.mlx_ptr);
+	free(game.mlx_ptr);
 	free_config(&config);
 	free_game(&game);
 	return (0);
