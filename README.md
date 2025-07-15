@@ -117,3 +117,94 @@ Dentro del mapa:
  Falla si:
  - Tiene muchas líneas vacías al final
  - 
+
+
+
+ Pruebas de leaks con valgrind:
+ - valgrind --track-fds=yes ./cub3d test.cub 
+ - valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes ./cub3d test.cub
+
+
+## Raycasting
+1. Preparar el entorno de renderizado:
+ - Función de render_frame y dentro de esa función un draw_background o algo asi
+
+2. Implementación del algoritmo de raycasting
+ - una función tipo raycasting_draw() que se llame desde render_frame
+ - dentro de la función 
+
+
+
+## Corregir
+- Colores DONE
+- Colores repetidos DONE
+- Leaks
+- COsas al final del mapa DONE
+
+
+____________
+#### Errores Valgrind
+==556007== 431 bytes in 17 blocks are still reachable in loss record 49 of 58
+==556007==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==556007==    by 0x403B62: ft_tabtospaces (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x402AB8: ft_read_map_lines (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x402A33: ft_parse_map (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4032C1: ft_handle_config_line (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403145: ft_parse_config (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4026F8: main (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007== 
+
+==556007== 264 bytes in 1 blocks are still reachable in loss record 47 of 58
+==556007==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==556007==    by 0x403943: ft_realloc_strarray (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x402BD0: ft_add_map_line (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x402B48: ft_read_map_lines (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x402A33: ft_parse_map (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4032C1: ft_handle_config_line (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403145: ft_parse_config (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4026F8: main (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+
+==556007== 35 bytes in 1 blocks are still reachable in loss record 21 of 58
+==556007==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==556007==    by 0x407333: ft_strdup (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4029E7: ft_parse_map (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4032C1: ft_handle_config_line (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403145: ft_parse_config (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4026F8: main (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+
+==556007== 28 bytes in 1 blocks are still reachable in loss record 14 of 58
+==556007==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==556007==    by 0x40366C: ft_strdup_textures (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x402CCC: ft_parse_texture (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403434: ft_parse_element (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403316: ft_handle_config_line (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403145: ft_parse_config (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4026F8: main (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+
+==556007== 26 bytes in 1 blocks are still reachable in loss record 13 of 58
+==556007==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==556007==    by 0x40366C: ft_strdup_textures (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x402CCC: ft_parse_texture (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4033F5: ft_parse_element (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403316: ft_handle_config_line (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403145: ft_parse_config (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4026F8: main (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+
+==556007== 25 bytes in 1 blocks are still reachable in loss record 12 of 58
+==556007==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==556007==    by 0x40366C: ft_strdup_textures (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x402CCC: ft_parse_texture (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403473: ft_parse_element (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403316: ft_handle_config_line (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403145: ft_parse_config (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4026F8: main (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+
+==556007== 21 bytes in 1 blocks are still reachable in loss record 6 of 58
+==556007==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==556007==    by 0x40366C: ft_strdup_textures (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x402CCC: ft_parse_texture (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4034B2: ft_parse_element (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403316: ft_handle_config_line (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x403145: ft_parse_config (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007==    by 0x4026F8: main (in /home/madel-va/Documents/proyectos/cub3d/cube_git/cub3d)
+==556007== 

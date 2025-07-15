@@ -80,14 +80,15 @@ int	find_player_start(char **map, int *x, int *y)
 
 int	flood_fill(char **map, int x, int y)
 {
-	if (y < 0 || x < 0 || map[y] == NULL || x >= (int)ft_strlen(map[y]) || map[y][x] == ' ')
+	if (y < 0 || x < 0 || map[y] == NULL || x >= (int)ft_strlen(map[y])
+		|| map[y][x] == ' ')
 	{
 		printf("Out of bounds: x=%d, y=%d\n", x, y);
-		return (0); // fuera de mapa
+		return (0);
 	}
 	if (ft_strchr("X1", map[y][x]))
-		return (1); // ya visitado o muro
-	map[y][x] = 'X'; // marcar como visitado
+		return (1);
+	map[y][x] = 'X';
 	return (flood_fill(map, x + 1, y)
 		&& flood_fill(map, x - 1, y)
 		&& flood_fill(map, x, y + 1)

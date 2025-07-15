@@ -14,12 +14,16 @@
 
 int	init_game(t_game *game, t_config *config)
 {
-	game->win_width = 800;
-	game->win_height = 600;
-	game->config = *config;
+	int	screen_width;
+	int	screen_height;
+
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		return (ft_error("Error al inicializar mlx\n"));
+	mlx_get_screen_size(game->mlx_ptr, &screen_width, &screen_height);
+	game->win_width = screen_width;
+	game->win_height = screen_height;
+	game->config = *config;
 	game->win_ptr = mlx_new_window(game->mlx_ptr, game->win_width,
 			game->win_height, "Cub3D");
 	if (!game->win_ptr)
@@ -30,6 +34,29 @@ int	init_game(t_game *game, t_config *config)
 	}
 	ft_init_player(game, config->map_lines);
 	return (1);
+}
+
+static void	set_player_orientation(t_game *game, char dir)
+{
+	if (dir == 'N')
+		set_orientation_north(game);
+	else if (dir == 'S')
+		set_orientation_south(game);
+	else if (dir == 'E')
+		set_orientation_east(game);
+	else if (dir == 'W')
+		set_orientation_west(game);
+}
+
+static int	set_player_position(t_game *game, char **map, int i, int j)
+{
+	char	dir;
+
+	dir = map[i][j];
+	game->player.x = j + 0.5;
+	game->player.y = i + 0.5;
+	set_player_orientation(game, dir);
+	return (0);
 }
 
 int	ft_init_player(t_game *game, char **map_lines)
@@ -45,39 +72,7 @@ int	ft_init_player(t_game *game, char **map_lines)
 		{
 			if (map_lines[i][j] == 'N' || map_lines[i][j] == 'S' ||
 				map_lines[i][j] == 'E' || map_lines[i][j] == 'W')
-			{
-				game->player.x = j + 0.5;
-				game->player.y = i + 0.5;
-				if (map_lines[i][j] == 'N')
-				{
-					game->player.dir_x = 0;
-					game->player.dir_y = -1;
-					game->player.plane_x = 0.66;
-					game->player.plane_y = 0;
-				}
-				else if (map_lines[i][j] == 'S')
-				{
-					game->player.dir_x = 0;
-					game->player.dir_y = 1;
-					game->player.plane_x = -0.66;
-					game->player.plane_y = 0;
-				}
-				else if (map_lines[i][j] == 'E')
-				{
-					game->player.dir_x = 1;
-					game->player.dir_y = 0;
-					game->player.plane_x = 0;
-					game->player.plane_y = 0.66;
-				}
-				else if (map_lines[i][j] == 'W')
-				{
-					game->player.dir_x = -1;
-					game->player.dir_y = 0;
-					game->player.plane_x = 0;
-					game->player.plane_y = -0.66;
-				}
-				return (0);
-			}
+				return (set_player_position(game, map_lines, i, j));
 			j++;
 		}
 		i++;
