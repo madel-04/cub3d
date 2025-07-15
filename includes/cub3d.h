@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
 /*   Updated: 2025/06/11 13:33:06 by madel-va         ###   ########.fr       */
