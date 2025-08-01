@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/06/11 13:33:06 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:46:21 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,21 @@
 # include <unistd.h>
 # include <stdbool.h>
 
+# define WIDTH     1280
+# define HEIGHT     720
+# define PI     	3.14159265359
+# define BLOCK     64
+
+# define DEBUG    0
+
+
+#define MINI_BLOCK 16
+#define MINI_PLAYER_SIZE 4
+#define MINI_MAP_OFFSET_X 10
+#define MINI_MAP_OFFSET_Y 10
+
+
+
 # define KEY_ESC     65307
 # define KEY_W       119
 # define KEY_A       97
@@ -31,6 +46,8 @@
 # define KEY_D       100
 # define KEY_LEFT    65361
 # define KEY_RIGHT   65363
+
+#define KEY_SPACE		32
 
 typedef struct s_texture
 {
@@ -81,6 +98,22 @@ typedef struct s_player
 	int		move_right;
 	int		turn_left;
 	int		turn_right;
+
+
+	float	x_nv;
+	float	y_nv;
+	float	angle;
+	
+	bool	key_up;
+	bool	key_down;
+	bool	key_left;
+	bool	key_right;
+	
+	bool	left_rotate;
+	bool	right_rotate;
+
+	bool show_minimap;
+
 }		t_player;
 
 typedef struct s_game
@@ -93,6 +126,8 @@ typedef struct s_game
 	t_player	player;
 	int			win_width;
 	int			win_height;
+
+	t_img minimap;
 }			t_game;
 
 
@@ -150,5 +185,15 @@ int			ft_atoi_2(const char *str);
 // *** KEYS ***
 int			handle_key(int keycode, t_game *game);
 int			handle_key_release(int keycode, t_game *game);
+
+
+
+
+
+
+int draw_loop_newversion(t_game *game);
+int init_game_newversion(t_game *game, t_config *config);
+int key_press_newversion(int keycode, t_player *player);
+int key_release_newversion(int keycode, t_player *player);
 
 #endif

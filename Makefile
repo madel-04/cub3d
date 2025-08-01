@@ -5,6 +5,7 @@ SRC_DIR = src/
 INCLUDES = -I includes/ -I libft/ -I minilibx-linux/
 LIBFT = libft/libft.a
 SRC =   $(SRC_DIR)main/main.c \
+		$(SRC_DIR)main/otro.c \
 		$(SRC_DIR)parser/parse_map.c \
 		$(SRC_DIR)parser/ft_parse_x.c \
 		$(SRC_DIR)parser/parser_config.c \

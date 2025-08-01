@@ -33,6 +33,25 @@ int	init_game(t_game *game, t_config *config)
 		return (ft_error("Error al crear la ventana\n"));
 	}
 	ft_init_player(game, config->map_lines);
+
+
+	int map_width = 0;
+	int map_height = 0;
+	while (game->config.map_lines[map_height])
+	{
+		if ((int)ft_strlen(game->config.map_lines[map_height]) > map_width)
+			map_width = ft_strlen(game->config.map_lines[map_height]);
+		map_height++;
+	}
+
+	int tile_size = 6;
+
+	game->minimap.width = map_width * tile_size;
+	game->minimap.height = map_height * tile_size;
+	game->minimap.img_ptr = mlx_new_image(game->mlx_ptr, game->minimap.width, game->minimap.height);
+	game->minimap.data = mlx_get_data_addr(game->minimap.img_ptr, &game->minimap.bpp,
+	&game->minimap.size_line, &game->minimap.endian);
+
 	return (1);
 }
 
