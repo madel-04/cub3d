@@ -25,23 +25,11 @@ int	ft_parse_texture(char *line, t_config *config, int i)
 	return (1);
 }
 
-int	ft_parse_color(char *line, int *color_array)
+static int	ft_validate_and_set_colors(char **components, int *color_array)
 {
-	char	**components;
-	int		i;
-	int		value;
+	int	i;
+	int	value;
 
-	if (color_array[0] != -1 || color_array[1] != -1 || color_array[2] != -1 )
-		return(ft_error("Error: los colores ya han sido declarados\n"));
-	while (*line == ' ' || *line == '\t')
-		line++;
-	components = ft_split(line, ',');
-	if (!components || ft_strarray_len(components) != 3)
-	{
-		if (components)
-			ft_strarray_free(components);
-		return (ft_error("Color debe tener 3 componentes.\n"));
-	}
 	i = 0;
 	while (i < 3)
 	{
@@ -54,6 +42,26 @@ int	ft_parse_color(char *line, int *color_array)
 		color_array[i] = value;
 		i++;
 	}
+	return (1);
+}
+
+int	ft_parse_color(char *line, int *color_array)
+{
+	char	**components;
+
+	if (color_array[0] != -1 || color_array[1] != -1 || color_array[2] != -1)
+		return (ft_error("Error: los colores ya han sido declarados\n"));
+	while (*line == ' ' || *line == '\t')
+		line++;
+	components = ft_split(line, ',');
+	if (!components || ft_strarray_len(components) != 3)
+	{
+		if (components)
+			ft_strarray_free(components);
+		return (ft_error("Color debe tener 3 componentes.\n"));
+	}
+	if (!ft_validate_and_set_colors(components, color_array))
+		return (0);
 	ft_strarray_free(components);
 	return (1);
 }

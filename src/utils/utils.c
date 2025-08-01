@@ -6,7 +6,7 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 10:05:52 by madel-va          #+#    #+#             */
-/*   Updated: 2025/06/11 13:32:42 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/08/01 17:45:14 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ft_atoi_2(const char *str)
 	}
 	if (*str != '\0' && *str != 13)
 	{
-		return ft_error("Debe ser caracteres numéricos para los colores\n");
+		return (ft_error("Debe ser caracteres numéricos para los colores\n"));
 	}
 	value = value * sign;
 	return (value);

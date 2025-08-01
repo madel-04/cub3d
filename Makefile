@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 CC = cc
 OBJ_DIR = obj/
 SRC_DIR = src/
