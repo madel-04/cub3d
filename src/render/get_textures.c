@@ -6,7 +6,7 @@
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 09:26:40 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/01 05:13:38 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/01 10:12:48 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 	}
 }*/
 
-/* t_texture	load_texture(void *mlx, char *path)
+t_texture	load_texture(void *mlx, char *path)
 {
 	t_texture	texture;
 
@@ -51,27 +51,4 @@
 	texture.pixels = (int *)mlx_get_data_addr(texture.img, &(int){0},
 			&(int){0}, &(int){0});
 	return (texture);
-} */
-t_texture load_texture(void *mlx, char *path)
-{
-	t_texture texture;
-
-	if (!mlx || !path)
-		ft_error("mlx o path nulos en load_texture");
-
-	if (access(path, F_OK) != 0)
-	{
-		perror("No se encuentra la textura");
-		exit(EXIT_FAILURE);
-	}
-
-	texture.img = mlx_xpm_file_to_image(mlx, path, &texture.width, &texture.height);
-	if (!texture.img)
-		ft_error("Error cargando textura con mlx_xpm_file_to_image");
-
-	texture.pixels = (int *)mlx_get_data_addr(texture.img, &(int){0}, &(int){0}, &(int){0});
-	if (!texture.pixels)
-		ft_error("Error al obtener datos de la textura");
-
-	return texture;
 }

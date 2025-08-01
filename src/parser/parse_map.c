@@ -107,7 +107,6 @@ static int	ft_read_map_lines(int fd, char ***map, int *lines_count)
 		if (i == 0)
 			break;
 	}
-	free(line);
 	return (1);
 }
 
