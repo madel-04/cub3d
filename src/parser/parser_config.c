@@ -6,7 +6,7 @@
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:53:38 by madel-va          #+#    #+#             */
-/*   Updated: 2025/07/31 12:04:56 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/05 09:35:02 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,44 +144,4 @@ int	ft_parse_config(int fd, t_config *config)
 		return (0);
 	return (map_found);
 }
-
-/*int	ft_parse_config(int fd, t_config *config)
-{
-	char	*line;
-	int		ret;
-	char	*temp;
-
-	line = NULL;
-	printf("Parsing configuration...\n");
-	while ((ret = get_next_line(fd, &line)) > 0)
-	{
-		printf("Read line: %s\n", line);
-		temp = line;
-		line = ft_tabtospaces(line);
-		free(temp);
-		if (line[0] == '\0' || ft_is_line_blank(line)) // línea vacía
-		{
-			printf("Empty line detected, skipping.\n");
-			free(line);
-			continue;
-		}
-		if (ft_is_map_line(line)) // línea de mapa (empieza con 0,1,N,...)
-		{
-			if (!ft_parse_map(fd, config, line))
-			{
-				printf("Error parsing map line: %s\n", line);
-				return (free(line), 0);
-			}
-			free(line);
-			return (1); // mapa se parsea hasta el final, termina aquí
-		}
-		if (!ft_parse_element(line, config)) // cabeceras R, NO, F, C...
-			printf("Error parsing element: %s\n", line);
-		free(line);
-	}
-	printf("Finished parsing configuration.\n");
-	if (ret < 0)
-		return (0);
-	return (0);
-}*/
 // !He leido que está bien que se transformen las tabulaciones en 4 espacios, no sé si tamb se aplica en el mapa

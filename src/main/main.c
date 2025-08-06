@@ -6,7 +6,7 @@
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:00:00 by madel-va          #+#    #+#             */
-/*   Updated: 2025/07/31 17:57:25 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/05 09:17:04 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	main(int argc, char **argv)
 	config.west  = load_texture(game.mlx_ptr, config.textures[2]);
 	config.east  = load_texture(game.mlx_ptr, config.textures[3]);
 	
+
+
 	mlx_hook(game.win_ptr, 2, 1L<<0, key_press_newversion, &game.player);        	 // Key press
 	mlx_hook(game.win_ptr, 3, 1L<<1, key_release_newversion, &game.player);	 // Key release
 	mlx_hook(game.win_ptr, 17, 0, close_window, &game);

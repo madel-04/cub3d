@@ -6,7 +6,7 @@
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/07/31 17:46:21 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/06 03:58:58 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,10 +190,56 @@ int			handle_key_release(int keycode, t_game *game);
 
 
 
+int			key_press_newversion(int keycode, t_player *player);
+int			key_release_newversion(int keycode, t_player *player);
 
-int draw_loop_newversion(t_game *game);
-int init_game_newversion(t_game *game, t_config *config);
-int key_press_newversion(int keycode, t_player *player);
-int key_release_newversion(int keycode, t_player *player);
+
+// *** RAYCASTING ***
+// DRAW MINIMAP UTILS
+void		draw_rectangle(int x, int y, int width, int height, int color, t_game *game);
+void		fill_square(int x, int y, int size, int color, t_game *game);
+void		draw_background_cell(char c, int x, int y, t_game *game, int offset_x, int offset_y);
+void		draw_map_background(t_game *game, int offset_x, int offset_y);
+void		draw_single_ray(float angle, t_game *game, int offset_x, int offset_y);
+
+// DRAW MINIMAP
+void		draw_minimap_rays(t_game	*game, int offset_x, int offset_y);
+void		draw_minimap_mini(t_game *game, int offset_x, int offset_y);
+void		draw_minimap_newversion(t_game *game);
+
+// MOVE PLAYER
+void	move_forward(t_player *player, t_game *game, float cos_a, float sin_a, float speed);
+void	move_backward(t_player *player, t_game *game, float cos_a, float sin_a, float speed);
+void	move_left(t_player *player, t_game *game, float side_a, float speed);
+void	move_right(t_player *player, t_game *game, float side_a, float speed);
+void	rotate_player(t_player *player, float angle_speed);
+void		move_player(t_player *player, t_game *game);
+
+// RAYCASTING INITS
+void		init_player_from_map(t_player *player, char **map);
+int			init_window_and_images(t_game *game);
+int			init_textures(t_game *game);
+void		get_map_dimensions(t_game *game, int *map_width, int *map_height);
+int			init_minimap(t_game *game, int map_width, int map_height, int tile_size);
+void		init_player_newversion(t_player *player);
+int			init_game_newversion(t_game *game, t_config *config);
+
+// RAYCASTING UTILS
+int			rgb_to_int(int r, int g, int b);
+float		distance(float x, float y);
+bool		touch(float px, float py, t_game *game);
+void		put_pixel_newversion(int x, int y, int color, t_game *game);
+void		draw_square(int x, int y, int size, int color, t_game *game);
+
+// RAYCASTING
+float		real_distance(float ray_x, float ray_y, t_game *game);
+void		clear_image_newversion(t_game *game);
+void		draw_lines_newversion(t_player *player, t_game *game, float ray_angle, int column);
+int			draw_loop_newversion(t_game *game);
+
+
+// OTRO
+
+
 
 #endif
