@@ -8,7 +8,6 @@ SRC =   $(SRC_DIR)main/main.c \
 		$(SRC_DIR)raycasting/draw_minimap.c \
 		$(SRC_DIR)raycasting/draw_minimap_utils.c \
 		$(SRC_DIR)raycasting/move_player.c \
-		$(SRC_DIR)raycasting/raycasting_inits.c \
 		$(SRC_DIR)raycasting/raycasting_utils.c \
 		$(SRC_DIR)raycasting/raycasting.c \
 		$(SRC_DIR)parser/parse_map.c \
@@ -22,10 +21,10 @@ SRC =   $(SRC_DIR)main/main.c \
 		$(SRC_DIR)validations/validate_player.c \
 		$(SRC_DIR)validations/validate_textures.c \
 		$(SRC_DIR)data_init/config_init.c \
+		$(SRC_DIR)data_init/init_game_utils.c \
 		$(SRC_DIR)data_init/init_game.c \
 		$(SRC_DIR)data_init/set_orientation.c \
 		$(SRC_DIR)frees/free.c \
-		$(SRC_DIR)render/render.c \
 		$(SRC_DIR)render/get_textures.c \
 		$(SRC_DIR)teclas/handle_keys.c \
 

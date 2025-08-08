@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 10:05:52 by madel-va          #+#    #+#             */
-/*   Updated: 2025/06/11 13:32:42 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/08/08 01:45:12 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	ft_error(const char *message)
 
 int	ft_isspace(int c)
 {
-	if (c == ' ' || c == '\n' || c == '\t' || c == '\r'
-		|| c == '\f' || c == '\v' )
+	if (c == ' ' || c == '\n' || c == '\t' || c == '\r' || c == '\f'
+		|| c == '\v')
 		return (1);
 	return (0);
 }
@@ -68,8 +68,8 @@ int	ft_atoi_2(const char *str)
 
 	sign = 1;
 	value = 0;
-	while ((*str == ' ') || (*str == '\f') || (*str == '\n') || (*str == '\r')
-		|| (*str == '\t') || (*str == '\v'))
+	while ((*str == ' ') || (*str == '\f') || (*str == '\n')
+		|| (*str == '\r') || (*str == '\t') || (*str == '\v'))
 		str++;
 	if (*str == '-')
 		sign *= -1;
@@ -82,7 +82,7 @@ int	ft_atoi_2(const char *str)
 	}
 	if (*str != '\0' && *str != 13)
 	{
-		return ft_error("Debe ser caracteres numéricos para los colores\n");
+		return (ft_error("Debe ser caracteres numéricos para los colores\n"));
 	}
 	value = value * sign;
 	return (value);

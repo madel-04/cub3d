@@ -6,53 +6,11 @@
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:53:38 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/05 09:35:02 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/08 05:39:40 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	ft_is_map_line_trailing(const char *line)
-{
-	const char	*temp;
-
-	if (ft_isspace(*line))
-	{
-		temp = line;
-		while (*temp && ft_isspace(*temp))
-			temp++;
-		if (*temp != '\0')
-			return (0);
-	}
-	return (1);
-}
-
-int	ft_is_map_line(const char *line)
-{
-	int			has_map_char;
-
-	has_map_char = 0;
-	while (*line && ft_isspace(*line))
-		line++;
-	while (*line)
-	{
-		if (*line == '0' || *line == '1'
-			|| *line == 'N' || *line == 'S'
-			|| *line == 'E' || *line == 'W'
-			|| *line == ' ')
-			has_map_char = 1;
-		else if (ft_isspace(*line))
-		{
-			if (!ft_is_map_line_trailing(line))
-				return (0);
-			break ;
-		}
-		else
-			return (0);
-		line++;
-	}
-	return (has_map_char);
-}
 
 static int	ft_parse_element(char *line, t_config *config)
 {
@@ -85,18 +43,13 @@ static int	ft_handle_config_line(char *line, int fd, t_config *config)
 	if (!line)
 		return (0);
 	if (line[0] == '\0' || ft_is_line_blank(line))
-	{
-		printf("Empty line detected, skipping.\n");
-		free(line);
-		return (1);
-	}
+		return (free(line), 1);
 	if (ft_is_map_line(line))
 	{
 		if (!ft_parse_map(fd, config, line))
 		{
 			printf("Error parsing map line: %s\n", line);
-			free(line);
-			return (0);
+			return (free(line), 0);
 		}
 		free(line);
 		return (2);
@@ -106,42 +59,53 @@ static int	ft_handle_config_line(char *line, int fd, t_config *config)
 	return (free(line), 1);
 }
 
+static int	handle_line_before_map(char *line, int fd, t_config *config,
+		int *map_found)
+{
+	int	status;
+
+	status = ft_handle_config_line(line, fd, config);
+	if (status == 0)
+		return (0);
+	if (status == 2)
+		*map_found = 1;
+	return (1);
+}
+
+static int	validate_line_after_map(char *line)
+{
+	if (line[0] != '\0' && !ft_is_line_blank(line))
+	{
+		free(line);
+		ft_error("Error: Hay líneas después del mapa.\n");
+		return (0);
+	}
+	free(line);
+	return (1);
+}
+
 int	ft_parse_config(int fd, t_config *config)
 {
 	char	*line;
 	int		ret;
-	int		status;
 	int		map_found;
 
 	line = NULL;
 	map_found = 0;
-	printf("Parsing configuration...\n");
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		printf("Read line: %s\n", line);
 		if (!map_found)
 		{
-			status = ft_handle_config_line(line, fd, config);
-			if (status == 0)
+			if (!handle_line_before_map(line, fd, config, &map_found))
 				return (0);
-			if (status == 2)
-				map_found = 1;
 		}
-		else
-		{
-			if (line[0] != '\0' && !ft_is_line_blank(line))
-			{
-				free(line);
-				ft_error("Error: Hay líneas después del mapa.\n");
-				return (0);
-			}
-			free(line);
-		}
+		else if (!validate_line_after_map(line))
+			return (0);
 	}
 	free(line);
-	printf("Finished parsing configuration.\n");
 	if (ret < 0)
 		return (0);
 	return (map_found);
 }
-// !He leido que está bien que se transformen las tabulaciones en 4 espacios, no sé si tamb se aplica en el mapa
+// !He leido que está bien que se transformen las tabulaciones en 4 espacios,
+//	no sé si tamb se aplica en el mapa

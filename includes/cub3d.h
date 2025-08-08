@@ -6,7 +6,7 @@
 /*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/06 03:58:58 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/08 06:46:13 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,35 @@
 
 # define CUB3D_H
 
+// ==== LIBRERÍAS ====
 # include "libft.h"
 # include "get_next_line.h"
 # include "mlx.h"
 # include <math.h>
-# include <fcntl.h> 
-# include <stdio.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
 
-# define WIDTH     1280
-# define HEIGHT     720
-# define PI     	3.14159265359
-# define BLOCK     64
+// ==== DEFINICIONES ====
+# define WIDTH				1280
+# define HEIGHT			720
+# define BLOCK			64
 
-# define DEBUG    0
+# define MINI_BLOCK		16
+# define MINI_PLAYER_SIZE	4
+# define MINI_MAP_OFFSET_X	10
+# define MINI_MAP_OFFSET_Y	10
+# define PI				3.14159265359
 
-
-#define MINI_BLOCK 16
-#define MINI_PLAYER_SIZE 4
-#define MINI_MAP_OFFSET_X 10
-#define MINI_MAP_OFFSET_Y 10
-
-
-
-# define KEY_ESC     65307
-# define KEY_W       119
-# define KEY_A       97
-# define KEY_S       115
-# define KEY_D       100
-# define KEY_LEFT    65361
-# define KEY_RIGHT   65363
-
-#define KEY_SPACE		32
+# define KEY_ESC		65307
+# define KEY_W			119
+# define KEY_A			97
+# define KEY_S			115
+# define KEY_D			100
+# define KEY_LEFT		65361
+# define KEY_RIGHT		65363
+# define KEY_SPACE		32
 
 typedef struct s_texture
 {
@@ -90,31 +85,34 @@ typedef struct s_player
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
-	double	move_speed; // Velocidad de movimiento
-	double	rot_speed;  // Velocidad de rotación
-	int		move_forward;
-	int		move_backward;
-	int		move_left;
-	int		move_right;
-	int		turn_left;
-	int		turn_right;
-
-
-	float	x_nv;
-	float	y_nv;
 	float	angle;
-	
 	bool	key_up;
 	bool	key_down;
 	bool	key_left;
 	bool	key_right;
-	
 	bool	left_rotate;
 	bool	right_rotate;
-
-	bool show_minimap;
-
+	bool	show_minimap;
 }		t_player;
+
+typedef struct s_draw_data
+{
+	int	x;
+	int	y;
+	int	width;
+	int	height;
+	int	size;
+	int	color;
+	int	offset_x;
+	int	offset_y;
+}	t_draw_data;
+
+typedef struct s_spawn_info
+{
+	int		x;
+	int		y;
+	char	c;
+}	t_spawn_info;
 
 typedef struct s_game
 {
@@ -127,7 +125,8 @@ typedef struct s_game
 	int			win_width;
 	int			win_height;
 
-	t_img minimap;
+	t_img		minimap;
+	t_draw_data	draw;
 }			t_game;
 
 
@@ -208,18 +207,21 @@ void		draw_minimap_mini(t_game *game, int offset_x, int offset_y);
 void		draw_minimap_newversion(t_game *game);
 
 // MOVE PLAYER
-void	move_forward(t_player *player, t_game *game, float cos_a, float sin_a, float speed);
-void	move_backward(t_player *player, t_game *game, float cos_a, float sin_a, float speed);
-void	move_left(t_player *player, t_game *game, float side_a, float speed);
-void	move_right(t_player *player, t_game *game, float side_a, float speed);
-void	rotate_player(t_player *player, float angle_speed);
+void		move_forward(t_player *player, t_game *game, float cos_a, float sin_a, float speed);
+void		move_backward(t_player *player, t_game *game, float cos_a, float sin_a, float speed);
+void		move_left(t_player *player, t_game *game, float side_a, float speed);
+void		move_right(t_player *player, t_game *game, float side_a, float speed);
 void		move_player(t_player *player, t_game *game);
+
+// RAYCASTING INITS UTILS
+void		set_player_angle(t_player *player, char **map, t_spawn_info info);
+void		rotate_player(t_player *player, float angle_speed);
+int			charge_textures(t_game *game);
+void		get_map_dimensions(t_game *game, int *map_width, int *map_height);
 
 // RAYCASTING INITS
 void		init_player_from_map(t_player *player, char **map);
 int			init_window_and_images(t_game *game);
-int			init_textures(t_game *game);
-void		get_map_dimensions(t_game *game, int *map_width, int *map_height);
 int			init_minimap(t_game *game, int map_width, int map_height, int tile_size);
 void		init_player_newversion(t_player *player);
 int			init_game_newversion(t_game *game, t_config *config);

@@ -12,89 +12,99 @@
 
 #include "cub3d.h"
 
-int	init_game(t_game *game, t_config *config)
+void	init_player_newversion(t_player *player)
 {
-	int	screen_width;
-	int	screen_height;
+	player->x = WIDTH / 2 - BLOCK / 4;
+	player->y = HEIGHT / 2 - BLOCK / 4;
+	player->angle = PI / 2;
+	player->key_up = false;
+	player->key_down = false;
+	player->key_left = false;
+	player->key_right = false;
+	player->left_rotate = false;
+	player->right_rotate = false;
+	player->show_minimap = false;
+}
 
+void	init_player_from_map(t_player *player, char **map)
+{
+	int				y;
+	int				x;
+	t_spawn_info	info;
+
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == 'N' || map[y][x] == 'S'
+				|| map[y][x] == 'E' || map[y][x] == 'W')
+			{
+				info.x = x;
+				info.y = y;
+				info.c = map[y][x];
+				set_player_angle(player, map, info);
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+int	init_window_and_images(t_game *game)
+{
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
-		return (ft_error("Error al inicializar mlx\n"));
-	mlx_get_screen_size(game->mlx_ptr, &screen_width, &screen_height);
-	game->win_width = screen_width;
-	game->win_height = screen_height;
-	game->config = *config;
-	game->win_ptr = mlx_new_window(game->mlx_ptr, game->win_width,
-			game->win_height, "Cub3D");
+		return (0);
+	game->win_ptr = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 	if (!game->win_ptr)
-	{
-		mlx_destroy_display(game->mlx_ptr);
-		free(game->mlx_ptr);
-		return (ft_error("Error al crear la ventana\n"));
-	}
-	ft_init_player(game, config->map_lines);
-
-
-	int map_width = 0;
-	int map_height = 0;
-	while (game->config.map_lines[map_height])
-	{
-		if ((int)ft_strlen(game->config.map_lines[map_height]) > map_width)
-			map_width = ft_strlen(game->config.map_lines[map_height]);
-		map_height++;
-	}
-
-	int tile_size = 6;
-
-	game->minimap.width = map_width * tile_size;
-	game->minimap.height = map_height * tile_size;
-	game->minimap.img_ptr = mlx_new_image(game->mlx_ptr, game->minimap.width, game->minimap.height);
-	game->minimap.data = mlx_get_data_addr(game->minimap.img_ptr, &game->minimap.bpp,
-	&game->minimap.size_line, &game->minimap.endian);
-
+		return (0);
+	game->img.img_ptr = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
+	if (!game->img.img_ptr)
+		return (0);
+	game->img.data = mlx_get_data_addr(game->img.img_ptr, &game->img.bpp,
+			&game->img.size_line, &game->img.endian);
+	if (!game->img.data)
+		return (0);
 	return (1);
 }
 
-static void	set_player_orientation(t_game *game, char dir)
+int	init_minimap(t_game *game, int map_width, int map_height, int tile_size)
 {
-	if (dir == 'N')
-		set_orientation_north(game);
-	else if (dir == 'S')
-		set_orientation_south(game);
-	else if (dir == 'E')
-		set_orientation_east(game);
-	else if (dir == 'W')
-		set_orientation_west(game);
+	game->minimap.width = map_width * tile_size;
+	game->minimap.height = map_height * tile_size;
+	game->minimap.img_ptr = mlx_new_image(game->mlx_ptr, game->minimap.width,
+			game->minimap.height);
+	if (!game->minimap.img_ptr)
+		return (0);
+	game->minimap.data = mlx_get_data_addr(game->minimap.img_ptr,
+			&game->minimap.bpp, &game->minimap.size_line,
+			&game->minimap.endian);
+	if (!game->minimap.data)
+		return (0);
+	return (1);
 }
 
-static int	set_player_position(t_game *game, char **map, int i, int j)
+int	init_game_newversion(t_game *game, t_config *config)
 {
-	char	dir;
+	int	map_width;
+	int	map_height;
+	int	tile_size;
 
-	dir = map[i][j];
-	game->player.x = j + 0.5;
-	game->player.y = i + 0.5;
-	set_player_orientation(game, dir);
-	return (0);
-}
-
-int	ft_init_player(t_game *game, char **map_lines)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map_lines[i])
-	{
-		j = 0;
-		while (map_lines[i][j])
-		{
-			if (map_lines[i][j] == 'N' || map_lines[i][j] == 'S' ||
-				map_lines[i][j] == 'E' || map_lines[i][j] == 'W')
-				return (set_player_position(game, map_lines, i, j));
-			j++;
-		}
-		i++;
-	}
-	return (ft_error("Error: No se encontró el jugador en el mapa\n"));
+	tile_size = 6;
+	game->config = *config;
+	init_player_newversion(&game->player);
+	init_player_from_map(&game->player, game->config.map_lines);
+	if (!init_window_and_images(game))
+		return (0);
+	if (!charge_textures(game))
+		return (0);
+	get_map_dimensions(game, &map_width, &map_height);
+	if (!init_minimap(game, map_width, map_height, tile_size))
+		return (0);
+	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img_ptr, 0,
+		0);
+	return (1);
 }

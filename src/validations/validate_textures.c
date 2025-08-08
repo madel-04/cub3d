@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_textures.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 10:19:50 by madel-va          #+#    #+#             */
-/*   Updated: 2025/06/11 13:47:59 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/08/08 07:02:36 by lmntrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	has_valid_textures(char **textures, t_config *config, t_game *game)
 		if (!textures[i] || ft_strlen(textures[i]) < 5)
 			return (0);
 		trim_newline(textures[i]);
-		printf("%s\n", textures[i]);
 		if (ft_strncmp(textures[i] + ft_strlen(textures[i]) - 4,
 				".xpm", 4) != 0)
 			return (0);
