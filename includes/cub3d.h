@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/08 06:46:13 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/09 20:40:11 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,8 +207,8 @@ void		draw_minimap_mini(t_game *game, int offset_x, int offset_y);
 void		draw_minimap_newversion(t_game *game);
 
 // MOVE PLAYER
-void		move_forward(t_player *player, t_game *game, float cos_a, float sin_a, float speed);
-void		move_backward(t_player *player, t_game *game, float cos_a, float sin_a, float speed);
+void		move_forward(t_player *player, t_game *game, float angle, float speed);
+void		move_backward(t_player *player, t_game *game, float angle, float speed);
 void		move_left(t_player *player, t_game *game, float side_a, float speed);
 void		move_right(t_player *player, t_game *game, float side_a, float speed);
 void		move_player(t_player *player, t_game *game);
