@@ -6,7 +6,7 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:00:00 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/10 18:42:13 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/08/10 19:04:14 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,15 @@ void	draw_minimap_mini(t_game *game, int offset_x, int offset_y)
 	int			px;
 	int			py;
 	t_square	square;
+	t_offset	offset;
 
 	square.size = MINI_PLAYER_SIZE;
 	square.color = 0xFF0000;
+	offset.x = offset_x;
+	offset.y = offset_y;
 	px = game->player.x / BLOCK * MINI_BLOCK + offset_x - 2;
 	py = game->player.y / BLOCK * MINI_BLOCK + offset_y - 2;
-	draw_map_background(game, offset_x, offset_y);
+	draw_map_background(game, &offset);
 	draw_square(px, py, &square, game);
 	draw_minimap_rays(game, offset_x, offset_y);
 }

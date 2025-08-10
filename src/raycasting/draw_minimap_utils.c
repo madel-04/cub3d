@@ -6,13 +6,13 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:00:00 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/10 18:41:25 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/08/10 19:12:11 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_rectangle(int x, int y, int width, int height, int color,
+/*void	draw_rectangle(int x, int y, int width, int height, int color,
 		t_game *game)
 {
 	int	j;
@@ -29,60 +29,63 @@ void	draw_rectangle(int x, int y, int width, int height, int color,
 		}
 		j++;
 	}
-}
-
-void	fill_square(int x, int y, int size, int color, t_game *game)
+}*/
+void	fill_square(int x, int y, t_square *square, t_game *game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < size)
+	while (i < square->size)
 	{
 		j = 0;
-		while (j < size)
+		while (j < square->size)
 		{
-			put_pixel_newversion(x + i, y + j, color, game);
+			put_pixel_newversion(x + i, y + j, square->color, game);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_background_cell(char c, int x, int y, t_game *game, int offset_x,
-		int offset_y)
+void	draw_background_cell(char c, t_coords *coords, t_game *game,
+		t_offset *offset)
 {
 	t_square	square;
 
 	square.size = MINI_BLOCK;
-	square.color = 0x00FF00;
+	square.color = 0x444444;
 	if (c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		fill_square(x * MINI_BLOCK + offset_x, y * MINI_BLOCK + offset_y,
-			MINI_BLOCK, 0x444444, game);
+		fill_square(coords->x * MINI_BLOCK + offset->x, coords->y
+			* MINI_BLOCK + offset->y, &square, game);
 		if (c == '1')
-			draw_square(x * MINI_BLOCK + offset_x, y * MINI_BLOCK + offset_y,
-				&square, game);
+		{
+			square.color = 0xFF0000;	
+			draw_square(coords->x * MINI_BLOCK + offset->x, coords->y
+				* MINI_BLOCK + offset->y, &square, game);
+		}
+			
 	}
 }
 
-void	draw_map_background(t_game *game, int offset_x, int offset_y)
+void	draw_map_background(t_game *game, t_offset *offset)
 {
-	int		x;
-	int		y;
-	char	**map;
+	char		**map;
+	t_coords	coords;
 
 	map = game->config.map_lines;
-	y = 0;
-	while (map[y])
+	coords.y = 0;
+	while (map[coords.y])
 	{
-		x = 0;
-		while (map[y][x])
+		coords.x = 0;
+		while (map[coords.y][coords.x])
 		{
-			draw_background_cell(map[y][x], x, y, game, offset_x, offset_y);
-			x++;
+			draw_background_cell(map[coords.y][coords.x], &coords, game,
+				offset);
+			coords.x++;
 		}
-		y++;
+		coords.y++;
 	}
 }
 

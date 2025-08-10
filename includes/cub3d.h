@@ -6,7 +6,7 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/10 18:40:15 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/08/10 19:11:47 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,18 @@ typedef struct s_square
 	int		color;
 }	t_square;
 
+typedef struct s_coords
+{
+	int		x;
+	int		y;
+}	t_coords;
+
+typedef struct s_offset
+{
+	int	x;
+	int	y;
+}	t_offset;
+
 // *** CONFIG INIT ***
 void		ft_config_init(t_config *config);
 int			init_game(t_game *game, t_config *config);
@@ -200,10 +212,10 @@ int			key_release_newversion(int keycode, t_player *player);
 
 // *** RAYCASTING ***
 // DRAW MINIMAP UTILS
-void		draw_rectangle(int x, int y, int width, int height, int color, t_game *game);
-void		fill_square(int x, int y, int size, int color, t_game *game);
-void		draw_background_cell(char c, int x, int y, t_game *game, int offset_x, int offset_y);
-void		draw_map_background(t_game *game, int offset_x, int offset_y);
+//void		draw_rectangle(int x, int y, int width, int height, int color, t_game *game);
+void		fill_square(int x, int y, t_square *square, t_game *game);
+void		draw_background_cell(char c, t_coords *coords, t_game *game, t_offset *offset);
+void		draw_map_background(t_game *game, t_offset *offset);
 void		draw_single_ray(float angle, t_game *game, int offset_x, int offset_y);
 
 // DRAW MINIMAP
