@@ -6,7 +6,7 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/10 19:11:47 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:02:47 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,14 @@ typedef struct s_player
 
 typedef struct s_draw_data
 {
-	int	x;
-	int	y;
-	int	width;
-	int	height;
-	int	size;
-	int	color;
-	int	offset_x;
-	int	offset_y;
+	float		rx;
+	float		ry;
+	float		wh;
+	int			sy;
+	int			tx;
+	t_texture	*tex;
 }	t_draw_data;
+
 
 typedef struct s_spawn_info
 {
@@ -146,6 +145,15 @@ typedef struct s_offset
 	int	x;
 	int	y;
 }	t_offset;
+
+typedef struct s_face_texture
+{
+	int		mx;
+	int		my;
+	float	lx;
+	float	ly;
+}	t_face_texture;
+
 
 // *** CONFIG INIT ***
 void		ft_config_init(t_config *config);
@@ -256,6 +264,12 @@ void		clear_image_newversion(t_game *game);
 void		draw_lines_newversion(t_player *player, t_game *game, float ray_angle, int column);
 int			draw_loop_newversion(t_game *game);
 
+// DRAW_LINES_NEWVERSION_UTILS
+void		init_ray(t_player *p, t_game *g, float angle, t_draw_data *data);
+void		compute_wall(t_draw_data *data, t_game *g);
+t_texture	*get_face_texture(t_game *g, t_face_texture *face);
+t_texture	*select_texture(t_game *g, float rx, float ry, int *tx);
+void		draw_column(int col, t_draw_data *data, t_game *g);
 
 // OTRO
 

@@ -10,6 +10,7 @@ SRC =   $(SRC_DIR)main/main.c \
 		$(SRC_DIR)raycasting/move_player.c \
 		$(SRC_DIR)raycasting/raycasting_utils.c \
 		$(SRC_DIR)raycasting/raycasting.c \
+		$(SRC_DIR)raycasting/draw_lines_newversion_utils.c \
 		$(SRC_DIR)parser/parse_map.c \
 		$(SRC_DIR)parser/ft_parse_x.c \
 		$(SRC_DIR)parser/parser_config.c \

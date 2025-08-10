@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:00:00 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/08 04:50:47 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/10 19:56:47 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	clear_image_newversion(t_game *game)
 	}
 }
 
-void	draw_lines_newversion(t_player *player, t_game *game, float ray_angle,
+/*void	draw_lines_newversion(t_player *player, t_game *game, float ray_angle,
 		int column)
 {
 	float		ray_x;
@@ -134,7 +134,19 @@ void	draw_lines_newversion(t_player *player, t_game *game, float ray_angle,
 		put_pixel_newversion(column, y, color, game);
 		y++;
 	}
+}*/
+// ********************************************************* //
+void	draw_lines_newversion(t_player *player, t_game *game, float a, int col)
+{
+	t_draw_data	data;
+
+	init_ray(player, game, a, &data);
+	compute_wall(&data, game);
+	data.tex = select_texture(game, data.rx, data.ry, &data.tx);
+	draw_column(col, &data, game);
 }
+
+// *********************************************** //
 
 int	draw_loop_newversion(t_game *game)
 {
