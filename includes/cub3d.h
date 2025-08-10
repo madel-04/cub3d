@@ -6,7 +6,7 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/09 20:40:11 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/08/10 12:28:52 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,11 @@ typedef struct s_game
 	t_draw_data	draw;
 }			t_game;
 
+typedef struct s_square
+{
+	int		size;
+	int		color;
+}			t_square;
 
 // *** CONFIG INIT ***
 void		ft_config_init(t_config *config);
@@ -231,7 +236,7 @@ int			rgb_to_int(int r, int g, int b);
 float		distance(float x, float y);
 bool		touch(float px, float py, t_game *game);
 void		put_pixel_newversion(int x, int y, int color, t_game *game);
-void		draw_square(int x, int y, int size, int color, t_game *game);
+void		draw_square(int x, int y, t_square *square, t_game *game);
 
 // RAYCASTING
 float		real_distance(float ray_x, float ray_y, t_game *game);
