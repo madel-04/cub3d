@@ -88,7 +88,8 @@ static int	ft_read_map_lines(int fd, char ***map, int *lines_count)
 	char	*temp;
 	int		i;
 
-	while ((i = get_next_line(fd, &line)) >= 0)
+	i = get_next_line(fd, &line);
+	while (i >= 0)
 	{
 		temp = line;
 		line = ft_tabtospaces(temp);
@@ -104,6 +105,7 @@ static int	ft_read_map_lines(int fd, char ***map, int *lines_count)
 			return (0);
 		if (i == 0)
 			break ;
+		i = get_next_line(fd, &line);
 	}
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_config.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:53:38 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/08 05:39:40 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/10 18:33:46 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int	ft_parse_config(int fd, t_config *config)
 
 	line = NULL;
 	map_found = 0;
-	while ((ret = get_next_line(fd, &line)) > 0)
+	ret = get_next_line(fd, &line);
+	while (ret > 0)
 	{
 		if (!map_found)
 		{
@@ -101,6 +102,7 @@ int	ft_parse_config(int fd, t_config *config)
 		}
 		else if (!validate_line_after_map(line))
 			return (0);
+		ret = get_next_line(fd, &line);
 	}
 	free(line);
 	if (ret < 0)

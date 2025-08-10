@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:00:00 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/08 07:10:10 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/10 18:41:25 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,17 @@ void	fill_square(int x, int y, int size, int color, t_game *game)
 void	draw_background_cell(char c, int x, int y, t_game *game, int offset_x,
 		int offset_y)
 {
+	t_square	square;
+
+	square.size = MINI_BLOCK;
+	square.color = 0x00FF00;
 	if (c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		fill_square(x * MINI_BLOCK + offset_x, y * MINI_BLOCK + offset_y,
 			MINI_BLOCK, 0x444444, game);
 		if (c == '1')
 			draw_square(x * MINI_BLOCK + offset_x, y * MINI_BLOCK + offset_y,
-				MINI_BLOCK, 0x00FF00, game);
+				&square, game);
 	}
 }
 

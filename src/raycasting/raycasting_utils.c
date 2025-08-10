@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:00:00 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/08 07:07:37 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/10 18:37:46 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,22 @@ void	put_pixel_newversion(int x, int y, int color, t_game *game)
 	game->img.data[index + 2] = (color >> 16) & 0xFF;
 }
 
-void	draw_square(int x, int y, int size, int color, t_game *game)
+void	draw_square(int x, int y, t_square *square, t_game *game)
 {
 	int	i;
 
 	i = 0;
-	while (i < size)
+	while (i < square->size)
 	{
-		put_pixel_newversion(x + i, y, color, game);
-		put_pixel_newversion(x + i, y + size - 1, color, game);
+		put_pixel_newversion(x + i, y, square->color, game);
+		put_pixel_newversion(x + i, y + square->size - 1, square->color, game);
 		i++;
 	}
 	i = 1;
-	while (i < size - 1)
+	while (i < square->size - 1)
 	{
-		put_pixel_newversion(x, y + i, color, game);
-		put_pixel_newversion(x + size - 1, y + i, color, game);
+		put_pixel_newversion(x, y + i, square->color, game);
+		put_pixel_newversion(x + square->size - 1, y + i, square->color, game);
 		i++;
 	}
 }
