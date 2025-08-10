@@ -12,55 +12,6 @@
 
 #include "cub3d.h"
 
-/*int	ft_parse_map(int fd, t_config *config, char *first_line)
-{
-	char	**map;
-	char	*line;
-	int		lines_alloc;
-	int		lines_count;
-	int		ret;
-	char	*temp;
-
-	lines_alloc = 32;
-	lines_count = 0;
-	map = malloc(sizeof(char *) * (lines_alloc + 1));
-	if (!map)
-		return (0);
-	map[lines_count++] = ft_strdup(first_line);
-	if (!map[0])
-		return (free(map), 0);
-	while ((ret = get_next_line(fd, &line)) > 0)
-	{
-		temp = line;
-		line = ft_tabtospaces(line);
-		free(temp);
-		if (!line)
-		{
-			free_strarray(map);
-			return (0);
-		}
-		printf("Read line: %s\n", line);
-		if (!ft_is_map_line(line))
-		{
-			free(line); // &PRIMERA
-			break;
-		}
-		if (lines_count >= lines_alloc)
-		{
-			lines_alloc *= 2;
-			char **tmp = ft_realloc_strarray(map, lines_count, lines_alloc);
-			if (!tmp)
-				return (free_strarray(map), 0);
-			map = tmp;
-		}
-		map[lines_count++] = line;
-	}
-	if (ret == 0 && line)
-		free(line);
-	map[lines_count] = NULL;
-	config->map_lines = map;
-	return (1);
-}*/
 static int	ft_add_map_line(char *line, char ***map,
 	t_config *config, int *lines_count)
 {
@@ -88,7 +39,8 @@ static int	ft_read_map_lines(int fd, char ***map, int *lines_count)
 	char	*temp;
 	int		i;
 
-	while ((i = get_next_line(fd, &line)) >= 0)
+	i = get_next_line(fd, &line);
+	while (i >= 0)
 	{
 		temp = line;
 		line = ft_tabtospaces(temp);
@@ -104,6 +56,7 @@ static int	ft_read_map_lines(int fd, char ***map, int *lines_count)
 			return (0);
 		if (i == 0)
 			break ;
+		i = get_next_line(fd, &line);
 	}
 	return (1);
 }
