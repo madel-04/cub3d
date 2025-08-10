@@ -1,7 +1,7 @@
-NO ./textures/greystone.xpm
-SO ./textures/purplestone.xpm
+NO ./textures/mossy.xpm
+SO ./textures/netherrack_01.xpm
 WE ./textures/redbrick.xpm
-EA ./textures/wood.xpm
+EA ./textures/mossy.xpm
 
 F 255,35,122
 C 255,134,164
