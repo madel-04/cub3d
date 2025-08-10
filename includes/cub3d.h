@@ -6,7 +6,7 @@
 /*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:55:23 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/10 20:02:47 by madel-va         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:09:10 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ typedef struct s_texture
 	int		*pixels;
 }	t_texture;
 
-typedef struct	s_config
+typedef struct s_config
 {
 	int			res_x;
-	int			res_y;                   // <- R línea
-	char		*textures[4];            // [NO, SO, WE, EA]  <- líneas de textura 
-	int			floor_color[3];          // <- F línea
-	int			ceiling_color[3];        // <- C línea
-	char		**map_lines;            // <- Lista de líneas del mapa
+	int			res_y;
+	char		*textures[4];
+	int			floor_color[3];
+	int			ceiling_color[3];
+	char		**map_lines;
 	t_texture	north;
 	t_texture	south;
 	t_texture	east;
@@ -104,7 +104,6 @@ typedef struct s_draw_data
 	int			tx;
 	t_texture	*tex;
 }	t_draw_data;
-
 
 typedef struct s_spawn_info
 {
@@ -154,7 +153,6 @@ typedef struct s_face_texture
 	float	ly;
 }	t_face_texture;
 
-
 // *** CONFIG INIT ***
 void		ft_config_init(t_config *config);
 int			init_game(t_game *game, t_config *config);
@@ -169,15 +167,14 @@ int			get_rgb(int color[3]);
 void		put_pixel(t_img *img, int x, int y, int color);
 void		draw_background(t_game *game);
 int			render_frame(t_game *game);
-t_texture	load_texture(void  *mlx, char *path);
+t_texture	load_texture(void *mlx, char *path);
 
 // *** PARSEO ***
-int 		ft_parse_config(int fd, t_config *config);
+int			ft_parse_config(int fd, t_config *config);
 int			ft_parse_texture(char *line, t_config *config, int index);
 int			ft_parse_color(char *line, int *color_array);
 int			ft_parse_map(int fd, t_config *config, char *first_line);
 int			ft_is_map_line(const char *line);
-
 
 // *** VALIDATIONS ***
 int			validate_config(t_config *config, t_game *game);
@@ -186,11 +183,11 @@ int			has_valid_player(char **map);
 void		free_map(char **map);
 int			flood_fill(char **map, int x, int y);
 int			find_player_start(char **map, int *x, int *y);
-char 		**copy_map(char **map);
+char		**copy_map(char **map);
 int			is_map_closed(char **map);
 
 // *** FREE ***
-void 		free_config(t_config *config);
+void		free_config(t_config *config);
 void		free_game(t_game *game);
 
 // *** UTILS ***
@@ -205,26 +202,20 @@ char		*ft_strdup_textures(const char *s);
 int			ft_is_line_blank(const char *line);
 int			ft_atoi_2(const char *str);
 
-
 // *** KEYS ***
 int			handle_key(int keycode, t_game *game);
 int			handle_key_release(int keycode, t_game *game);
-
-
-
-
-
 int			key_press_newversion(int keycode, t_player *player);
 int			key_release_newversion(int keycode, t_player *player);
 
-
 // *** RAYCASTING ***
 // DRAW MINIMAP UTILS
-//void		draw_rectangle(int x, int y, int width, int height, int color, t_game *game);
 void		fill_square(int x, int y, t_square *square, t_game *game);
-void		draw_background_cell(char c, t_coords *coords, t_game *game, t_offset *offset);
+void		draw_background_cell(char c, t_coords *coords, t_game *game,
+				t_offset *offset);
 void		draw_map_background(t_game *game, t_offset *offset);
-void		draw_single_ray(float angle, t_game *game, int offset_x, int offset_y);
+void		draw_single_ray(float angle, t_game *game, int offset_x,
+				int offset_y);
 
 // DRAW MINIMAP
 void		draw_minimap_rays(t_game	*game, int offset_x, int offset_y);
@@ -232,10 +223,14 @@ void		draw_minimap_mini(t_game *game, int offset_x, int offset_y);
 void		draw_minimap_newversion(t_game *game);
 
 // MOVE PLAYER
-void		move_forward(t_player *player, t_game *game, float angle, float speed);
-void		move_backward(t_player *player, t_game *game, float angle, float speed);
-void		move_left(t_player *player, t_game *game, float side_a, float speed);
-void		move_right(t_player *player, t_game *game, float side_a, float speed);
+void		move_forward(t_player *player, t_game *game, float angle,
+				float speed);
+void		move_backward(t_player *player, t_game *game, float angle,
+				float speed);
+void		move_left(t_player *player, t_game *game, float side_a,
+				float speed);
+void		move_right(t_player *player, t_game *game, float side_a,
+				float speed);
 void		move_player(t_player *player, t_game *game);
 
 // RAYCASTING INITS UTILS
@@ -247,7 +242,8 @@ void		get_map_dimensions(t_game *game, int *map_width, int *map_height);
 // RAYCASTING INITS
 void		init_player_from_map(t_player *player, char **map);
 int			init_window_and_images(t_game *game);
-int			init_minimap(t_game *game, int map_width, int map_height, int tile_size);
+int			init_minimap(t_game *game, int map_width, int map_height,
+				int tile_size);
 void		init_player_newversion(t_player *player);
 int			init_game_newversion(t_game *game, t_config *config);
 
@@ -261,7 +257,8 @@ void		draw_square(int x, int y, t_square *square, t_game *game);
 // RAYCASTING
 float		real_distance(float ray_x, float ray_y, t_game *game);
 void		clear_image_newversion(t_game *game);
-void		draw_lines_newversion(t_player *player, t_game *game, float ray_angle, int column);
+void		draw_lines_newversion(t_player *player, t_game *game,
+				float ray_angle, int column);
 int			draw_loop_newversion(t_game *game);
 
 // DRAW_LINES_NEWVERSION_UTILS
@@ -270,9 +267,5 @@ void		compute_wall(t_draw_data *data, t_game *g);
 t_texture	*get_face_texture(t_game *g, t_face_texture *face);
 t_texture	*select_texture(t_game *g, float rx, float ry, int *tx);
 void		draw_column(int col, t_draw_data *data, t_game *g);
-
-// OTRO
-
-
 
 #endif
