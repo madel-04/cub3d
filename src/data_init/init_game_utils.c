@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmntrix <lmntrix@student.42.fr>            +#+  +:+       +#+        */
+/*   By: madel-va <madel-va@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 12:49:55 by madel-va          #+#    #+#             */
-/*   Updated: 2025/08/08 05:26:08 by lmntrix          ###   ########.fr       */
+/*   Updated: 2025/08/10 20:45:59 by madel-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 int	charge_textures(t_game *game)
 {
 	game->config.north = load_texture(game->mlx_ptr,
-			"./textures/greystone.xpm");
+			game->config.textures[0]);
 	game->config.south = load_texture(game->mlx_ptr,
-			"./textures/purplestone.xpm");
-	game->config.east = load_texture(game->mlx_ptr, "./textures/redbrick.xpm");
-	game->config.west = load_texture(game->mlx_ptr, "./textures/wood.xpm");
+			game->config.textures[1]);
+	game->config.west = load_texture(game->mlx_ptr,
+			game->config.textures[2]);
+	game->config.east = load_texture(game->mlx_ptr,
+			game->config.textures[3]);
 	return (1);
 }
 
