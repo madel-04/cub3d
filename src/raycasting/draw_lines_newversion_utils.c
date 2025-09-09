@@ -16,15 +16,17 @@ void	init_ray(t_player *p, t_game *g, float angle, t_draw_data *data)
 {
 	float	ca;
 	float	sa;
+	float	step;
 
+	step = 0.5f;
 	data->rx = p->x;
 	data->ry = p->y;
 	ca = cos(angle);
 	sa = sin(angle);
 	while (!touch(data->rx, data->ry, g))
 	{
-		data->rx += ca;
-		data->ry += sa;
+		data->rx += ca * step;
+		data->ry += sa * step;
 	}
 }
 

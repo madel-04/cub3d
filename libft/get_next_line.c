@@ -12,11 +12,12 @@
 
 #include "get_next_line.h"
 
-char			*ft_strnew(size_t size)
+char	*ft_strnew(size_t size)
 {
 	char	*str;
 
-	if (!(str = (char *)malloc(sizeof(char) * size + 1)))
+	str = (char *)malloc(sizeof(char) * size + 1);
+	if (!str)
 		return (NULL);
 	str[size] = '\0';
 	while (size--)
@@ -24,7 +25,7 @@ char			*ft_strnew(size_t size)
 	return (str);
 }
 
-void			ft_strdel(char **str_ptr)
+void	ft_strdel(char **str_ptr)
 {
 	if (str_ptr)
 	{
@@ -33,7 +34,7 @@ void			ft_strdel(char **str_ptr)
 	}
 }
 
-static int		ft_next_line_save_extra(char **extra_text, char **line, int fd)
+static int	ft_next_line_save_extra(char **extra_text, char **line, int fd)
 {
 	int		i;
 	char	*trim;
@@ -59,7 +60,7 @@ static int		ft_next_line_save_extra(char **extra_text, char **line, int fd)
 	return (1);
 }
 
-static int		ft_loopbuffer(char **extra_text, int fd)
+static int	ft_loopbuffer(char **extra_text, int fd)
 {
 	int		i;
 	char	buf[BUFFER_SIZE + 1];
@@ -86,7 +87,7 @@ static int		ft_loopbuffer(char **extra_text, int fd)
 	return (i);
 }
 
-int				get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*extra_text[10000];
 	int			i;
@@ -99,8 +100,7 @@ int				get_next_line(int fd, char **line)
 	if (!i && !extra_text[fd])
 		return (0);
 	i = ft_next_line_save_extra(extra_text, line, fd);
-	// --- SOLUCIÓN: liberar el buffer si ya no queda nada ---
-	if (i == 0 && extra_text[fd] && extra_text[fd][0] == '\0') // Si ya no hay texto pendiente, libera por seguridad
+	if (i == 0 && extra_text[fd] && extra_text[fd][0] == '\0')
 	{
 		ft_strdel(&extra_text[fd]);
 	}
