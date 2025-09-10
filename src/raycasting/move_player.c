@@ -91,3 +91,41 @@ void	move_player(t_player *player, t_game *game)
 	if (player->key_right)
 		move_right(player, game, side_angle, speed);
 }
+
+/* void	move_player(t_player *player, t_game *game)
+{
+	float	speed;
+	float angle_speed;
+	speed = 3.5;
+	angle_speed = 0.05;
+	rotate_player(player, angle_speed);
+
+	float dx = 0, dy = 0;
+	if (player->key_up) {
+		dx += cos(player->angle);
+		dy += sin(player->angle);
+	}
+	if (player->key_down) {
+		dx -= cos(player->angle);
+		dy -= sin(player->angle);
+	}
+	if (player->key_left) {
+		dx += cos(player->angle + PI/2);
+		dy += sin(player->angle + PI/2);
+	}
+	if (player->key_right) {
+		dx += cos(player->angle - PI/2);
+		dy += sin(player->angle - PI/2);
+	}
+	! Normaliza si hay movimiento diagonal
+	if ((player->key_up || player->key_down) && (player->key_left || player->key_right)) {
+		dx /= 1.41421356f; // sqrt(2)
+		dy /= 1.41421356f;
+	}
+	float new_x = player->x + dx * speed;
+	float new_y = player->y + dy * speed;
+	if (!touch(new_x, player->y, game))
+		player->x = new_x;
+	if (!touch(player->x, new_y, game))
+		player->y = new_y;
+} */
