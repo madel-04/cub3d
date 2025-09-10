@@ -33,8 +33,8 @@ int	ft_ends_with(const char *str, const char *suffix)
 
 void	textures_and_hooks(t_game *game, t_config *config)
 {
-	config->north = load_texture(game->mlx_ptr, config->textures[0]);
-	config->south = load_texture(game->mlx_ptr, config->textures[1]);
+		// Las texturas deben cargarse una sola vez en la inicialización, no aquí
+		// Si necesitas hooks, ponlos aquí, pero no recargues texturas
 	config->west = load_texture(game->mlx_ptr, config->textures[2]);
 	config->east = load_texture(game->mlx_ptr, config->textures[3]);
 	mlx_hook(game->win_ptr, 2, 1L << 0, key_press_newversion, &game->player);

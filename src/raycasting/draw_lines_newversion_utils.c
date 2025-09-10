@@ -14,21 +14,21 @@
 
 void	init_ray(t_player *p, t_game *g, float angle, t_draw_data *data)
 {
-	float	ca;
-	float	sa;
-	float	step;
-
-	step = 0.5f;
-	data->rx = p->x;
-	data->ry = p->y;
-	ca = cos(angle);
-	sa = sin(angle);
-	while (!touch(data->rx, data->ry, g))
-	{
+		float ca = cos(angle);
+		float sa = sin(angle);
+		float step = 0.25f; // Menor step para mayor precisión y menos saltos
+		data->rx = p->x;
+		data->ry = p->y;
+		// El bucle solo avanza, no recalcula trigonometría
+		while (!touch(data->rx, data->ry, g)) {
+			data->rx += ca * step;
+			data->ry += sa * step;
+			// Si quieres limitar la distancia máxima, añade aquí un break
+		}
 		data->rx += ca * step;
 		data->ry += sa * step;
-	}
 }
+
 
 void	compute_wall(t_draw_data *data, t_game *g)
 {
