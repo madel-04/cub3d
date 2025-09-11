@@ -40,15 +40,19 @@ bool	touch(float px, float py, t_game *game)
 {
 	int			x;
 	int			y;
-	static int	*map_widths = NULL;
-	static int	last_height = -1;
-	
+	int			height;
+	static int	*map_widths;
+	static int	last_height;
+
+	map_widths = NULL;
+	last_height = -1;
 	x = px / BLOCK;
 	y = py / BLOCK;
 	if (!game->config.map_lines)
 		return (true);
-	int height = ft_strarray_len(game->config.map_lines);
-	if (!map_widths || last_height != height) {
+	height = ft_strarray_len(game->config.map_lines);
+	if (!map_widths || last_height != height)
+	{
 		if (map_widths)
 			free(map_widths);
 		map_widths = malloc(sizeof(int) * height);

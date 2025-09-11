@@ -1,0 +1,93 @@
+int	touch_free_map_widths(static int **map_widths, int *height, t_game *game)
+{
+	int	i;
+
+	i = 0;
+	if (*map_widths)
+	{
+		free(*map_widths);
+	}
+	*map_widths = malloc(sizeof(int) * height);
+	while (i < *height)
+	{
+		(*map_widths)[i] = ft_strlen(game->config.map_lines[i]);
+		i++;
+	}
+	return (*height);
+}
+
+bool	touch(float px, float py, t_game *game)
+{
+	int			x;
+	int			y;
+	int			height;
+	static int	*map_widths;
+	static int	last_height;
+
+	map_widths = NULL;
+	last_height = -1;
+	x = px / BLOCK;
+	y = py / BLOCK;
+	if (!game->config.map_lines)
+		return (true);
+	height = ft_strarray_len(game->config.map_lines);
+	if (!map_widths || last_height != height)
+	{
+		if (map_widths)
+			free(map_widths);
+		map_widths = malloc(sizeof(int) * height);
+		for (int i = 0; i < height; i++)
+			map_widths[i] = ft_strlen(game->config.map_lines[i]);
+		last_height = height;
+	}
+	if (y < 0 || y >= height || !game->config.map_lines[y])
+		return (true);
+	if (x < 0 || x >= map_widths[y])
+		return (true);
+	return (game->config.map_lines[y][x] == '1');
+}
+
+
+int	touch_free_map_widths(int **map_widths, int *height, t_game *game)
+{
+	int	i;
+
+	i = 0;
+	if (*map_widths)
+	{
+		free(*map_widths);
+	}
+	*map_widths = malloc(sizeof(int) * (*height));
+	while (i < *height)
+	{
+		(*map_widths)[i] = ft_strlen(game->config.map_lines[i]);
+		i++;
+	}
+	return (*height);
+}
+
+bool	touch(float px, float py, t_game *game)
+{
+	int			x;
+	int			y;
+	int			height;
+	static int	*map_widths;
+	static int	last_height;
+
+	map_widths = NULL;
+	last_height = -1;
+	x = px / BLOCK;
+	y = py / BLOCK;
+	if (!game->config.map_lines)
+		return (true);
+	height = ft_strarray_len(game->config.map_lines);
+	if (!map_widths || last_height != height)
+	{
+		last_height = touch_free_map_widths(&map_widths, &height, game);
+	}
+	if (y < 0 || y >= height || !game->config.map_lines[y])
+		return (true);
+	if (x < 0 || x >= map_widths[y])
+		return (true);
+	return (game->config.map_lines[y][x] == '1');
+}

@@ -118,7 +118,8 @@ void	move_player(t_player *player, t_game *game)
 		dy += sin(player->angle - PI/2);
 	}
 	! Normaliza si hay movimiento diagonal
-	if ((player->key_up || player->key_down) && (player->key_left || player->key_right)) {
+	if ((player->key_up || player->key_down) && (player->key_left 
+		|| player->key_right)) {
 		dx /= 1.41421356f; // sqrt(2)
 		dy /= 1.41421356f;
 	}
