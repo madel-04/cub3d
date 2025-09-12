@@ -24,39 +24,6 @@ int	ft_parse_texture(char *line, t_config *config, int i)
 	return (1);
 }
 
-/* int	ft_parse_color(char *line, int *color_array)
-{
-	char	**components;
-	int		i;
-	int		value;
-
-	if (color_array[0] != -1 || color_array[1] != -1 || color_array[2] != -1 )
-		return(ft_error("Error: los colores ya han sido declarados\n"));
-	while (*line == ' ' || *line == '\t')
-		line++;
-	components = ft_split(line, ',');
-	if (!components || ft_strarray_len(components) != 3)
-	{
-		if (components)
-			ft_strarray_free(components);
-		return (ft_error("Color debe tener 3 componentes.\n"));
-	}
-	i = 0;
-	while (i < 3)
-	{
-		value = ft_atoi_2(components[i]);
-		if (value < 0 || value > 255)
-		{
-			ft_strarray_free(components);
-			return (ft_error("Color fuera de rango (0-255).\n"));
-		}
-		color_array[i] = value;
-		i++;
-	}
-	ft_strarray_free(components);
-	return (1);
-} */
-
 static int	is_color_set(int *color_array)
 {
 	if (color_array[0] != -1 || color_array[1] != -1 || color_array[2] != -1)

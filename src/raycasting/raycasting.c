@@ -12,6 +12,30 @@
 
 #include "cub3d.h"
 
+bool	touch(float px, float py, t_game *game)
+{
+	int			x;
+	int			y;
+	int			height;
+	static int	*map_widths;
+	static int	last_height;
+
+	x = px / BLOCK;
+	y = py / BLOCK;
+	if (!game->config.map_lines)
+		return (true);
+	height = ft_strarray_len(game->config.map_lines);
+	if (!map_widths || last_height != height)
+	{
+		last_height = touch_free_map_widths(&map_widths, &height, game);
+	}
+	if (y < 0 || y >= height || !game->config.map_lines[y])
+		return (true);
+	if (x < 0 || x >= map_widths[y])
+		return (true);
+	return (game->config.map_lines[y][x] == '1');
+}
+
 float	real_distance(float ray_x, float ray_y, t_game *game)
 {
 	float	delta_x;
@@ -53,88 +77,6 @@ void	clear_image_newversion(t_game *game)
 	}
 }
 
-/*void	draw_lines_newversion(t_player *player, t_game *game, float ray_angle,
-		int column)
-{
-	float		ray_x;
-	float		ray_y;
-	float		cos_angle;
-	float		sin_angle;
-	float		dist;
-	float		wall_height;
-	int			start_y;
-	int			end_y;
-	int			map_x;
-	int			map_y;
-	t_texture	*tex;
-	char		**map;
-	float		local_x;
-	float		local_y;
-	int			tex_x;
-	int			y;
-	int			tex_y;
-	int			color;
-
-	ray_x = player->x;
-	ray_y = player->y;
-	cos_angle = cos(ray_angle);
-	sin_angle = sin(ray_angle);
-	while (!touch(ray_x, ray_y, game))
-	{
-		ray_x += cos_angle;
-		ray_y += sin_angle;
-	}
-	dist = real_distance(ray_x, ray_y, game);
-	wall_height = (BLOCK / dist) * (WIDTH / 2);
-	start_y = (HEIGHT - wall_height) / 2;
-	end_y = start_y + wall_height;
-	// Coordenadas del bloque impactado
-	map_x = (int)(ray_x / BLOCK);
-	map_y = (int)(ray_y / BLOCK);
-	tex = NULL;
-	map = game->config.map_lines;
-	// Coordenadas locales dentro del bloque
-	local_x = ray_x - map_x * BLOCK;
-	local_y = ray_y - map_y * BLOCK;
-	// Determinar cara tocada comprobando los bloques adyacentes
-	// y la posición local del impacto dentro del bloque
-	if (map_y > 0 && map[map_y - 1] && map_x < (int)ft_strlen(map[map_y - 1])
-		&& map[map_y - 1][map_x] == '0' && local_y < 1.0f)
-		tex = &game->config.south; // cara SUR (superior del bloque)
-	else if (map[map_y + 1] && map_x < (int)ft_strlen(map[map_y + 1])
-		&& map[map_y + 1][map_x] == '0' && local_y > BLOCK - 1.0f)
-		tex = &game->config.north;
-	else if (map_x > 0 && map_x - 1 < (int)ft_strlen(map[map_y])
-		&& map[map_y][map_x - 1] == '0' && local_x < 1.0f)
-		tex = &game->config.east;
-	else if (map_x + 1 < (int)ft_strlen(map[map_y]) && map[map_y][map_x
-		+ 1] == '0' && local_x > BLOCK - 1.0f)
-		tex = &game->config.west; // cara OESTE (derecha)
-	else
-		tex = &game->config.north; // fallback
-	// Calcular coordenada horizontal de la textura (depende del tipo de cara)
-	if (tex == &game->config.north || tex == &game->config.south)
-		tex_x = (int)(local_x / BLOCK * tex->width);
-	else
-		tex_x = (int)(local_y / BLOCK * tex->width);
-	if (tex_x < 0)
-		tex_x = 0;
-	if (tex_x >= tex->width)
-		tex_x = tex->width - 1;
-	// Pintar columna vertical
-	y = start_y;
-	while (y < end_y && y < HEIGHT)
-	{
-		tex_y = (int)((float)(y - start_y) *tex->height / wall_height);
-		if (tex_y < 0)
-			tex_y = 0;
-		if (tex_y >= tex->height)
-			tex_y = tex->height - 1;
-		color = tex->pixels[tex_y * tex->width + tex_x];
-		put_pixel_newversion(column, y, color, game);
-		y++;
-	}
-}*/
 // ********************************************************* //
 void	draw_lines_newversion(t_player *player, t_game *game, float a, int col)
 {

@@ -12,24 +12,6 @@
 
 #include "cub3d.h"
 
-/*void	draw_rectangle(int x, int y, int width, int height, int color,
-		t_game *game)
-{
-	int	j;
-	int	i;
-
-	j = 0;
-	while (j < height)
-	{
-		i = 0;
-		while (i < width)
-		{
-			put_pixel_newversion(x + i, y + j, color, game);
-			i++;
-		}
-		j++;
-	}
-}*/
 void	fill_square(int x, int y, t_square *square, t_game *game)
 {
 	int	i;
@@ -87,29 +69,6 @@ void	draw_map_background(t_game *game, t_offset *offset)
 		coords.y++;
 	}
 }
-
-/*void	draw_single_ray(float angle, t_game *game, int offset_x, int offset_y)
-{
-	float	ray_x;
-	float	ray_y;
-	float	cos_a;
-	float	sin_a;
-	int		mini_x;
-	int		mini_y;
-
-	ray_x = game->player.x;
-	ray_y = game->player.y;
-	cos_a = cos(angle);
-	sin_a = sin(angle);
-	while (!touch(ray_x, ray_y, game))
-	{
-		mini_x = ray_x / BLOCK * MINI_BLOCK + offset_x;
-		mini_y = ray_y / BLOCK * MINI_BLOCK + offset_y;
-		put_pixel_newversion(mini_x, mini_y, 0xAAAAAA, game);
-		ray_x += cos_a;
-		ray_y += sin_a;
-	}
-}*/
 
 void	draw_single_ray(float angle, t_game *game, int offset_x, int offset_y)
 {

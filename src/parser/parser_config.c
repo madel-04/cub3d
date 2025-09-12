@@ -109,5 +109,3 @@ int	ft_parse_config(int fd, t_config *config)
 		return (0);
 	return (map_found);
 }
-// !He leido que está bien que se transformen las tabulaciones en 4 espacios,
-//	no sé si tamb se aplica en el mapa

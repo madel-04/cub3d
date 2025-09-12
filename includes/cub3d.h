@@ -210,6 +210,7 @@ int			key_release_newversion(int keycode, t_player *player);
 
 // *** RAYCASTING ***
 // DRAW MINIMAP UTILS
+bool		touch(float px, float py, t_game *game);
 void		fill_square(int x, int y, t_square *square, t_game *game);
 void		draw_background_cell(char c, t_coords *coords, t_game *game,
 				t_offset *offset);
@@ -250,7 +251,7 @@ int			init_game_newversion(t_game *game, t_config *config);
 // RAYCASTING UTILS
 int			rgb_to_int(int r, int g, int b);
 float		distance(float x, float y);
-bool		touch(float px, float py, t_game *game);
+int			touch_free_map_widths(int **map_widths, int *height, t_game *game);
 void		put_pixel_newversion(int x, int y, int color, t_game *game);
 void		draw_square(int x, int y, t_square *square, t_game *game);
 

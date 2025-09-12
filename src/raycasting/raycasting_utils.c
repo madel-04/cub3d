@@ -22,45 +22,22 @@ float	distance(float x, float y)
 	return (sqrt(x * x + y * y));
 }
 
-/* bool	touch(float px, float py, t_game *game)
+int	touch_free_map_widths(int **map_widths, int *height, t_game *game)
 {
-	int	x;
-	int	y;
+	int	i;
 
-	x = px / BLOCK;
-	y = py / BLOCK;
-	if (y < 0 || !game->config.map_lines[y])
-		return (true);
-	if (x < 0 || x >= (int)ft_strlen(game->config.map_lines[y]))
-		return (true);
-	return (game->config.map_lines[y][x] == '1');
-} */
-
-bool	touch(float px, float py, t_game *game)
-{
-	int			x;
-	int			y;
-	static int	*map_widths = NULL;
-	static int	last_height = -1;
-	
-	x = px / BLOCK;
-	y = py / BLOCK;
-	if (!game->config.map_lines)
-		return (true);
-	int height = ft_strarray_len(game->config.map_lines);
-	if (!map_widths || last_height != height) {
-		if (map_widths)
-			free(map_widths);
-		map_widths = malloc(sizeof(int) * height);
-		for (int i = 0; i < height; i++)
-			map_widths[i] = ft_strlen(game->config.map_lines[i]);
-		last_height = height;
+	i = 0;
+	if (*map_widths)
+	{
+		free(*map_widths);
 	}
-	if (y < 0 || y >= height || !game->config.map_lines[y])
-		return (true);
-	if (x < 0 || x >= map_widths[y])
-		return (true);
-	return (game->config.map_lines[y][x] == '1');
+	*map_widths = malloc(sizeof(int) * (*height));
+	while (i < *height)
+	{
+		(*map_widths)[i] = ft_strlen(game->config.map_lines[i]);
+		i++;
+	}
+	return (*height);
 }
 
 void	put_pixel_newversion(int x, int y, int color, t_game *game)

@@ -76,18 +76,3 @@ int	main(int argc, char **argv)
 	cleanup(&game, &config);
 	return (0);
 }
-
-/*
-Rroadmap:
-X Parseo completo (.cub)
-
-X Validaciones de mapa
-
-X Convertir mapa a formato interno
-
-X Inicializar jugador y MiniLibX
-
-X Implementar raycasting
-
-X Añadir controles y render loop
-*/
